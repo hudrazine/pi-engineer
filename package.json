@@ -1,5 +1,5 @@
 {
-  "name": "pi-codex-prompt",
+  "name": "pi-engineer",
   "version": "0.0.0",
   "description": "A starter for creating a TypeScript package.",
   "keywords": [
@@ -8,15 +8,15 @@
     "pi-package",
     "system-prompt"
   ],
-  "homepage": "https://github.com/hudrazine/pi-codex-prompt#readme",
+  "homepage": "https://github.com/hudrazine/pi-engineer#readme",
   "bugs": {
-    "url": "https://github.com/hudrazine/pi-codex-prompt/issues"
+    "url": "https://github.com/hudrazine/pi-engineer/issues"
   },
   "license": "MIT",
   "author": "hudrazine",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hudrazine/pi-codex-prompt.git"
+    "url": "git+https://github.com/hudrazine/pi-engineer.git"
   },
   "files": [
     "src"
