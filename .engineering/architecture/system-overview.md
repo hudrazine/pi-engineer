@@ -1,15 +1,13 @@
 ---
 type: architecture
-status: draft
+status: active
 ---
 
 # System Overview
 
 ## Current State
 
-The repository is an unimplemented TypeScript Pi Package scaffold. Its package manifest points Pi at `src/index.ts`, while the source and test currently contain only starter placeholder behavior.
-
-This document describes the accepted target boundaries. It remains `draft` until implementation evidence confirms them.
+The repository is a TypeScript Pi Package. Its manifest points Pi at `src/index.ts`, which registers the Extension lifecycle and status command. `src/system-prompt.ts` owns the Portable Core and deterministic Runtime Layer assembly.
 
 ## Purpose and Boundaries
 
@@ -100,4 +98,4 @@ Version 0.1 supports Pi `>=0.84.0`. Release verification covers the minimum supp
 
 ## Implementation Status
 
-Implementation and architecture verification are tracked in the [Initial Implementation Plan](../plans/active/initial-implementation.md). When that plan completes, this document must be reconciled with the verified code and changed to `active` only if the stated boundaries remain accurate.
+Automated prompt-builder and Extension-registration tests verify these boundaries. Remaining manual behavior evaluation and release work are tracked in the [Initial Implementation Plan](../plans/active/initial-implementation.md).

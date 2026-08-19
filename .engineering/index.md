@@ -27,3 +27,7 @@ This documentation records the product intent, accepted prompt design, architect
 ## Active Plans
 
 - [Initial Implementation Plan](plans/active/initial-implementation.md)
+
+## Development
+
+- [Development Setup](development/setup.md)
