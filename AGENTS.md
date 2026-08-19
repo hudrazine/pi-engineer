@@ -2,6 +2,12 @@
 
 Guidance for AI coding agents working in this repository.
 
+## Project Overview
+
+`pi-engineer` is a Pi Package that replaces Pi's default system prompt with a portable software-engineering agent policy while preserving Pi's runtime-provided tools, project context, Skills, and additive instructions.
+
+Before making product, architecture, or prompt-design decisions, read `.engineering/index.md` and follow its links to the relevant authoritative documents.
+
 ## Commands
 
 This project uses Vite+, a unified toolchain with the global CLI `vp`. `vp <name>` runs a built-in; `vp run <name>` runs a `package.json` script or `vite.config.ts` task—scripts cannot overwrite built-ins, so check those files first. Docs: `node_modules/vite-plus/docs` or https://viteplus.dev/guide/.
