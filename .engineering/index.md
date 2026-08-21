@@ -32,3 +32,4 @@ This documentation records the product intent, accepted prompt design, architect
 ## Development
 
 - [Development Setup](development/setup.md)
+- [Release Procedure](development/release.md)

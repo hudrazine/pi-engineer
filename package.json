@@ -27,14 +27,16 @@
     "provenance": true
   },
   "scripts": {
+    "changeset": "changeset",
     "test": "vp test",
     "check": "vp check",
     "prepublishOnly": "vp run check && vp run test"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^1.0.0",
+    "@changesets/cli": "^3.0.1",
     "@earendil-works/pi-coding-agent": "^0.84.2",
     "@types/node": "^26.1.1",
-    "bumpp": "^11.1.0",
     "typescript": "^7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:"
