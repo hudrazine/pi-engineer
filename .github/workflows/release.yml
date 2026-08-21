@@ -35,4 +35,4 @@ jobs:
         run: vp run test
 
       - name: Publish to npm
-        run: pnpm publish --no-git-checks
+        run: vp pm publish --no-git-checks
