@@ -1,6 +1,6 @@
 {
   "name": "@hudrazine/pi-engineer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Pi Package that provides a portable software-engineering system prompt.",
   "keywords": [
     "pi",
