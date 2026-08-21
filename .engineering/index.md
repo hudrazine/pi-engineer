@@ -1,6 +1,6 @@
 # Engineering Documentation
 
-This documentation records the product intent, accepted prompt design, architecture decisions, and active implementation work for `pi-engineer`.
+This documentation records the product intent, accepted prompt design, architecture decisions, development procedures, and completed delivery history for `pi-engineer`.
 
 ## Terminology
 
@@ -24,9 +24,10 @@ This documentation records the product intent, accepted prompt design, architect
 - [ADR-0002: Separate Portable Policy from Runtime Context](decisions/0002-separate-portable-policy-from-runtime-context.md)
 - [ADR-0003: Defer to Explicit Custom System Prompts](decisions/0003-defer-to-explicit-custom-system-prompts.md)
 
-## Active Plans
+## Archived Plans
 
-- [Initial Implementation Plan](plans/active/initial-implementation.md)
+- [Initial Implementation Plan](plans/archive/initial-implementation.md)
+- [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md)
 
 ## Development
 

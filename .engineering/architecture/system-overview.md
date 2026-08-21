@@ -29,7 +29,7 @@ The Extension also registers `/pi-engineer status`. The command reports whether 
 
 The Portable Core is stable behavioral text. It has no knowledge of active tools, paths, project files, Skills, model identity, timestamps, or Extension ordering.
 
-Its accepted content is owned by the [System Prompt Design](../design/system-prompt.md#portable-core-v03).
+Its accepted content is owned by the [System Prompt Design](../design/system-prompt.md#portable-core-v05).
 
 ### Runtime Layer
 
@@ -98,4 +98,4 @@ Version 0.1 supports Pi `>=0.84.0`. Release verification covers the minimum supp
 
 ## Implementation Status
 
-Automated prompt-builder and Extension-registration tests verify these boundaries. Remaining manual behavior evaluation and release work are tracked in the [Initial Implementation Plan](../plans/active/initial-implementation.md).
+Automated prompt-builder and Extension-registration tests verify these boundaries. The scoped manual behavior evaluation is complete, and no blocking known issue remains for the v0.1 release candidate. The completed [Initial Implementation Plan](../plans/archive/initial-implementation.md) and [v0.1 Behavior Evaluation](../plans/archive/v0.1-behavior-evaluation.md) preserve the delivery and evaluation evidence. Package versioning and release publication remain separately authorized operations.

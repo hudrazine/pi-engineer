@@ -2,7 +2,11 @@ import { getDocsPath, getExamplesPath, getReadmePath } from "@earendil-works/pi-
 import type { Skill } from "@earendil-works/pi-coding-agent";
 import { createHash } from "node:crypto";
 import { expect, test } from "vite-plus/test";
-import { buildPiEngineerPrompt, PORTABLE_CORE } from "../src/system-prompt.ts";
+import {
+  buildPiEngineerPrompt,
+  PORTABLE_CORE,
+  PORTABLE_CORE_VERSION,
+} from "../src/system-prompt.ts";
 
 const skill: Skill = {
   name: "release-check",
@@ -18,9 +22,25 @@ const skill: Skill = {
   },
 };
 
-test("keeps the accepted Portable Core v0.3 bytes stable", () => {
+test("keeps the accepted Portable Core v0.5 bytes stable", () => {
+  expect(PORTABLE_CORE_VERSION).toBe("0.5");
   expect(createHash("sha256").update(PORTABLE_CORE).digest("hex")).toBe(
-    "692f89c6407244687b609987e8a13bd8607259e4eb03b31d680a747c28db6598",
+    "7b99d53dd6dd2ab2db0aa69006e592b80f1086a89056398cb92f4ab6d89ce001",
+  );
+});
+
+test("clarifies unresolved consequential choices without suppressing local autonomy", () => {
+  expect(PORTABLE_CORE).toContain(
+    "An explicit request to implement does not resolve a consequential choice that the request explicitly leaves undecided. Stop before editing and request that decision; continue to choose minor, local, reversible details yourself.",
+  );
+});
+
+test("defines protected roots, their non-overridable boundary, and safe alternatives", () => {
+  expect(PORTABLE_CORE).toContain(
+    "Treat a home directory, filesystem root, workspace root, repository root, or another broad collection of user data as a protected root. Explicit user authorization does not make a protected root a valid target for recursive destruction.",
+  );
+  expect(PORTABLE_CORE).toContain(
+    "If a request targets a protected root, stop before invoking a destructive tool. Explain the boundary and ask for a narrower child target. If the user intends to remove the entire workspace, direct them to do so outside the current agent session.",
   );
 });
 
