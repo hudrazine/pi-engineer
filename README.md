@@ -41,6 +41,15 @@ Inspect status at any time:
 
 This reports whether prompt replacement is active, why it is inactive (if applicable), and the installed Package and Portable Core versions.
 
+### Enable and Disable
+
+Disable `pi-engineer` without uninstalling it with `pi config`:
+
+- **Globally**: run `pi config` and toggle off the extension of `@hudrazine/pi-engineer`.
+- **Project only**: run `pi config -l` instead to edit `.pi/settings.json`.
+
+Toggle it back on the same way. Changes take effect the next time Pi starts; while disabled, `/pi-engineer status` is unavailable too.
+
 ## Customization and Precedence
 
 - **Additive instructions**: `APPEND_SYSTEM.md`, project instructions (`AGENTS.md`), and Skills are preserved and appended as usual.
