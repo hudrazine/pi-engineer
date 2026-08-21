@@ -92,10 +92,10 @@ test("reports active status, custom prompt precedence, and command usage", async
   await command.handler("help", context());
 
   expect(notifications).toEqual([
-    { message: "pi-engineer active (package 0.0.0, Portable Core 0.5).", type: "info" },
+    { message: "pi-engineer active (package 0.0.1, Portable Core 0.5).", type: "info" },
     {
       message:
-        "pi-engineer inactive: an explicit custom system prompt is active (package 0.0.0, Portable Core 0.5).",
+        "pi-engineer inactive: an explicit custom system prompt is active (package 0.0.1, Portable Core 0.5).",
       type: "info",
     },
     { message: "Usage: /pi-engineer status", type: "warning" },
