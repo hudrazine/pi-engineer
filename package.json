@@ -1,5 +1,5 @@
 {
-  "name": "pi-engineer",
+  "name": "@hudrazine/pi-engineer",
   "version": "0.0.0",
   "description": "A Pi Package that provides a portable software-engineering system prompt.",
   "keywords": [
@@ -23,7 +23,8 @@
   ],
   "type": "module",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "scripts": {
     "test": "vp test",
