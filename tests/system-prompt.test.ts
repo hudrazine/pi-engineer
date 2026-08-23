@@ -22,11 +22,21 @@ const skill: Skill = {
   },
 };
 
-test("keeps the accepted Portable Core v0.5 bytes stable", () => {
-  expect(PORTABLE_CORE_VERSION).toBe("0.5");
-  expect(createHash("sha256").update(PORTABLE_CORE).digest("hex")).toBe(
-    "7b99d53dd6dd2ab2db0aa69006e592b80f1086a89056398cb92f4ab6d89ce001",
-  );
+const acceptedPortableCore = {
+  version: "0.5",
+  sha256: "7b99d53dd6dd2ab2db0aa69006e592b80f1086a89056398cb92f4ab6d89ce001",
+} as const;
+
+const shellDiscoveryGuideline =
+  "Use available shell utilities for repository discovery and prefer efficient tools such as rg when available.";
+const shellSafetyGuideline =
+  "Do not repurpose standard environment variables for task-local values. Use explicit task-specific paths where safety matters, and avoid interpolation that could execute text or expose sensitive values unintentionally.";
+
+test("keeps the accepted Portable Core bytes stable", () => {
+  expect({
+    version: PORTABLE_CORE_VERSION,
+    sha256: createHash("sha256").update(PORTABLE_CORE).digest("hex"),
+  }).toEqual(acceptedPortableCore);
 });
 
 test("clarifies unresolved consequential choices without suppressing local autonomy", () => {
@@ -49,7 +59,7 @@ test("assembles the Portable Core and runtime sections in the accepted order", (
     cwd: "C:\\workspace\\pi-engineer",
     selectedTools: ["bash"],
     toolSnippets: { bash: "Run commands" },
-    promptGuidelines: ["Keep command output focused", "Keep command output focused", "  "],
+    promptGuidelines: ["Keep command output focused"],
     appendSystemPrompt: "Use the repository release process.",
   });
 
@@ -59,8 +69,8 @@ Available tools:
 - bash: Run commands
 
 Tool guidelines:
-- Use available shell utilities for repository discovery and prefer efficient tools such as rg when available.
-- Do not repurpose standard environment variables for task-local values. Use explicit task-specific paths where safety matters, and avoid interpolation that could execute text or expose sensitive values unintentionally.
+- ${shellDiscoveryGuideline}
+- ${shellSafetyGuideline}
 - Keep command output focused
 
 Pi documentation:
@@ -106,11 +116,89 @@ Second instructions
   expect(buildPiEngineerPrompt({ ...options, selectedTools: [] })).not.toContain("release-check");
 });
 
+test("uses default tools when selectedTools is omitted", () => {
+  const prompt = buildPiEngineerPrompt({
+    cwd: "/workspace/pi-engineer",
+    toolSnippets: { read: "Read files", write: "Write files" },
+    skills: [skill],
+  });
+
+  expect(prompt).toContain(`Available tools:
+- read: Read files
+- write: Write files`);
+  expect(prompt).toContain("<available_skills>");
+  expect(prompt).toContain("release-check");
+});
+
+test("renders snippets only for selected tools and preserves their order", () => {
+  const prompt = buildPiEngineerPrompt({
+    cwd: "/workspace/pi-engineer",
+    selectedTools: ["read", "bash"],
+    toolSnippets: { bash: "Run commands", write: "Write files", read: "Read files" },
+  });
+
+  expect(prompt).toContain(`Available tools:
+- read: Read files
+- bash: Run commands`);
+  expect(prompt).not.toContain("- write: Write files");
+});
+
+test.each(["grep", "find", "ls"])(
+  "omits the shell discovery guideline when %s is available",
+  (dedicatedTool) => {
+    const prompt = buildPiEngineerPrompt({
+      cwd: "/workspace/pi-engineer",
+      selectedTools: ["bash", dedicatedTool],
+    });
+
+    expect(prompt).not.toContain(shellDiscoveryGuideline);
+    expect(prompt).toContain(shellSafetyGuideline);
+  },
+);
+
+test("omits bash-specific guidelines when bash is unavailable", () => {
+  const prompt = buildPiEngineerPrompt({
+    cwd: "/workspace/pi-engineer",
+    selectedTools: ["read"],
+  });
+
+  expect(prompt).not.toContain(shellDiscoveryGuideline);
+  expect(prompt).not.toContain(shellSafetyGuideline);
+  expect(prompt).not.toContain("Tool guidelines:");
+});
+
+test("normalizes exact guideline duplicates while preserving first occurrence order", () => {
+  const prompt = buildPiEngineerPrompt({
+    cwd: "/workspace/pi-engineer",
+    selectedTools: [],
+    promptGuidelines: [" First guideline ", "Second guideline", "First guideline", "  "],
+  });
+
+  expect(prompt).toContain(`Tool guidelines:
+- First guideline
+- Second guideline
+
+Pi documentation:`);
+});
+
 test("omits empty runtime sections and produces deterministic output", () => {
-  const options = { cwd: "C:\\workspace", selectedTools: [], promptGuidelines: [" ", "\n"] };
+  const options = {
+    cwd: "C:\\workspace",
+    selectedTools: [],
+    toolSnippets: { bash: "Run commands" },
+    promptGuidelines: [" ", "\n"],
+    appendSystemPrompt: " \n ",
+    contextFiles: [],
+    skills: [],
+  };
   const first = buildPiEngineerPrompt(options);
+  const withoutOptionalSections = buildPiEngineerPrompt({ cwd: options.cwd, selectedTools: [] });
 
   expect(first).toBe(buildPiEngineerPrompt(options));
+  expect(first).toBe(withoutOptionalSections);
   expect(first).not.toContain("Available tools:");
   expect(first).not.toContain("Tool guidelines:");
+  expect(first).not.toContain("<project_context>");
+  expect(first).not.toContain("<available_skills>");
+  expect(first).toContain("Current working directory: C:/workspace");
 });
