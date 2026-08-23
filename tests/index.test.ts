@@ -8,7 +8,9 @@ import type {
   RegisteredCommand,
 } from "@earendil-works/pi-coding-agent";
 import { expect, test } from "vite-plus/test";
+import packageJson from "../package.json" with { type: "json" };
 import piEngineer from "../src/index.ts";
+import { buildPiEngineerPrompt, PORTABLE_CORE_VERSION } from "../src/system-prompt.ts";
 
 type BeforeAgentStartHandler = (
   event: BeforeAgentStartEvent,
@@ -42,19 +44,34 @@ function createEvent(customPrompt?: string): BeforeAgentStartEvent {
   };
 }
 
+type Notification = { message: string; type?: string };
+
+function createCommandContext(notifications: Notification[], customPrompt?: string) {
+  return {
+    ui: { notify: (message: string, type?: string) => notifications.push({ message, type }) },
+    getSystemPromptOptions: () => ({ cwd: "C:/workspace", customPrompt }),
+  } as unknown as Parameters<RegisteredCommand["handler"]>[1];
+}
+
+const version = `package ${packageJson.version}, Portable Core ${PORTABLE_CORE_VERSION}`;
+
 test("replaces Pi's root prompt only when no explicit custom prompt is active", async () => {
   const { beforeAgentStart } = registerExtension();
-  const notifications: Array<{ message: string; type?: string }> = [];
+  const notifications: Notification[] = [];
   const context = {
     hasUI: true,
     ui: { notify: (message: string, type?: string) => notifications.push({ message, type }) },
   } as unknown as ExtensionContext;
 
-  const active = await beforeAgentStart(createEvent(), context);
-  expect(active?.systemPrompt).toContain("You are a software engineering agent");
-  expect((await beforeAgentStart(createEvent(""), context))?.systemPrompt).toContain(
-    "You are a software engineering agent",
-  );
+  const activeEvent = createEvent();
+  expect(await beforeAgentStart(activeEvent, context)).toEqual({
+    systemPrompt: buildPiEngineerPrompt(activeEvent.systemPromptOptions),
+  });
+
+  const emptyCustomPromptEvent = createEvent("");
+  expect(await beforeAgentStart(emptyCustomPromptEvent, context)).toEqual({
+    systemPrompt: buildPiEngineerPrompt(emptyCustomPromptEvent.systemPromptOptions),
+  });
 
   expect(await beforeAgentStart(createEvent("Custom root prompt"), context)).toEqual({});
   expect(await beforeAgentStart(createEvent("Custom root prompt"), context)).toEqual({});
@@ -78,26 +95,34 @@ test("does not notify about a custom prompt when no UI is available", async () =
   expect(notifications).toEqual([]);
 });
 
-test("reports active status, custom prompt precedence, and command usage", async () => {
+test("reports active status with current package and Portable Core versions", async () => {
   const { command } = registerExtension();
-  const notifications: Array<{ message: string; type?: string }> = [];
-  const context = (customPrompt?: string) =>
-    ({
-      ui: { notify: (message: string, type?: string) => notifications.push({ message, type }) },
-      getSystemPromptOptions: () => ({ cwd: "C:/workspace", customPrompt }),
-    }) as unknown as Parameters<RegisteredCommand["handler"]>[1];
+  const notifications: Notification[] = [];
 
-  await command.handler("status", context());
-  await command.handler("status", context("Custom root prompt"));
-  await command.handler("help", context());
+  await command.handler("status", createCommandContext(notifications));
+
+  expect(notifications).toEqual([{ message: `pi-engineer active (${version}).`, type: "info" }]);
+});
+
+test("reports inactive status when an explicit custom prompt is active", async () => {
+  const { command } = registerExtension();
+  const notifications: Notification[] = [];
+
+  await command.handler("status", createCommandContext(notifications, "Custom root prompt"));
 
   expect(notifications).toEqual([
-    { message: "pi-engineer active (package 0.1.0, Portable Core 0.5).", type: "info" },
     {
-      message:
-        "pi-engineer inactive: an explicit custom system prompt is active (package 0.1.0, Portable Core 0.5).",
+      message: `pi-engineer inactive: an explicit custom system prompt is active (${version}).`,
       type: "info",
     },
-    { message: "Usage: /pi-engineer status", type: "warning" },
   ]);
+});
+
+test("reports command usage for unsupported arguments", async () => {
+  const { command } = registerExtension();
+  const notifications: Notification[] = [];
+
+  await command.handler("help", createCommandContext(notifications));
+
+  expect(notifications).toEqual([{ message: "Usage: /pi-engineer status", type: "warning" }]);
 });
