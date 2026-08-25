@@ -77,7 +77,7 @@ The implementation may rely on these public Pi capabilities:
 
 The structured inputs include `customPrompt`, `selectedTools`, `toolSnippets`, `promptGuidelines`, `appendSystemPrompt`, `cwd`, `contextFiles`, and `skills` in the currently installed Pi version.
 
-Version 0.1 supports Pi `>=0.84.0`. Release verification covers the minimum supported version and the current development version rather than every intervening patch release.
+Pi provides these public APIs at runtime, and the core package is declared as a wildcard peer following Pi Package guidance. Release verification exercises the Pi version resolved from the declared development dependency; the [Product Context](../product/product-context.md#product-constraints) defines the compatibility policy.
 
 ## System Constraints
 

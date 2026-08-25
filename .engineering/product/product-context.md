@@ -51,8 +51,8 @@ The user's workspace and external resources remain user-owned. The agent must no
 
 ## Product Constraints
 
-- Version 0.1 supports Pi versions `>=0.84.0`.
-- The minimum supported version and the current development version must both be verified before release.
+- Pi-provided core packages use wildcard peer ranges following Pi Package guidance. A recent Pi release is recommended; older releases are not tested or guaranteed.
+- The Pi version resolved from the declared development dependency must be verified before release.
 - Behavioral evaluation may be manual, but its result must distinguish passed, partial, failed, and untested scenarios.
 - A model-specific evaluation failure may be accepted as a non-blocking known limitation when the common policy is clear, representative models demonstrate the intended behavior, the failure does not expose an unresolved product-wide safety boundary, and further tuning would specialize the Portable Core for that model.
 

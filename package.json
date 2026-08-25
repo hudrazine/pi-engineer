@@ -44,7 +44,7 @@
     "vite-plus": "catalog:"
   },
   "peerDependencies": {
-    "@earendil-works/pi-coding-agent": ">=0.84.0"
+    "@earendil-works/pi-coding-agent": "*"
   },
   "devEngines": {
     "packageManager": {

@@ -13,10 +13,6 @@ Inspired by the behavioral principles of mature coding agents like Codex, it bri
 - **Progressive Skill usage**: Discovers available Agent Skills and loads their instructions only when needed.
 - **Ecosystem preservation**: Seamlessly preserves your tools, project instructions (`AGENTS.md`), custom additions (`APPEND_SYSTEM.md`), and working directory.
 
-## Requirements
-
-Pi `>=0.84.0`.
-
 ## Installation
 
 ```text
@@ -57,6 +53,7 @@ Toggle it back on the same way. Changes take effect the next time Pi starts; whi
 
 ## Compatibility and Limitations
 
+- A recent Pi release is recommended. Older releases are not tested or guaranteed.
 - Built entirely on Pi's public Extension APIs and prompt helpers.
 - If another extension directly rewrites the system prompt, extension execution order determines the final result.
 - The policy is model-agnostic; individual models may still show slight probabilistic variations in edge cases.

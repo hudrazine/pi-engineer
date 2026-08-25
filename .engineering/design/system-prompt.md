@@ -218,7 +218,6 @@ The implementation follows these resolved choices:
 
 - an explicit custom prompt produces at most one UI notification per session, at the first affected `before_agent_start` event;
 - `/pi-engineer status` provides on-demand state inspection;
-- version 0.1 supports Pi `>=0.84.0`;
 - prompt-builder behavior is automated, while model behavior scenarios remain manual initially;
 - the Portable Core remains provider- and model-agnostic; the DeepSeek v0.5 Ambiguity result and GPT Luna recoverability-reporting result are accepted as non-blocking known limitations rather than reasons for model-specific prompt tuning;
 - the Portable Core TypeScript constant becomes the sole exact-text authority when implemented.
