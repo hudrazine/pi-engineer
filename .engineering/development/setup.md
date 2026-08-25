@@ -8,7 +8,7 @@ status: active
 ## Preconditions
 
 - The global Vite+ CLI, `vp`.
-- Pi `>=0.84.0` for local Extension testing.
+- A recent Pi release for local Extension testing.
 
 ## Setup
 
