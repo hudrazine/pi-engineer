@@ -24,12 +24,9 @@ This documentation records the product intent, accepted prompt design, architect
 - [ADR-0002: Separate Portable Policy from Runtime Context](decisions/0002-separate-portable-policy-from-runtime-context.md)
 - [ADR-0003: Defer to Explicit Custom System Prompts](decisions/0003-defer-to-explicit-custom-system-prompts.md)
 
-## Active Plans
-
-- [Changesets Release Automation](plans/active/changesets-release-automation.md)
-
 ## Archived Plans
 
+- [Changesets Release Automation](plans/archive/changesets-release-automation.md)
 - [Initial Implementation Plan](plans/archive/initial-implementation.md)
 - [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md)
 
