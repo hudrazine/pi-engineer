@@ -3,42 +3,57 @@ type: development
 status: active
 ---
 
-# Release Procedure
+# npm Release Procedure
 
-This document defines how `pi-engineer` versions are proposed, accumulated, and published. Publishing runs through the existing [release workflow](../../../.github/workflows/release.yml) and never changes.
+## Current Release State
 
-## Change Classification
+`@hudrazine/pi-engineer@0.1.0`, Git tag `v0.1.0`, and its GitHub Release are published. Changesets owns subsequent package versions and `CHANGELOG.md` updates.
 
-| Change kind                                               | Examples                                                                        | Changeset required |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------ |
-| User-visible behavior, prompt content, compatibility      | Portable Core update, Runtime Layer section change, supported Pi version change | Yes                |
-| Documentation typo fix, CI adjustment, test-only refactor | README fixes, workflow tweaks, internal test restructuring                      | No                 |
+A push to `main` runs the [release workflow](../../../.github/workflows/publish.yml), which creates or updates the release pull request, publishes an approved release, or exits without release work. The first Changesets-managed publication remains to be verified with the next user-visible package change.
 
-Add a changeset from a branch with a version-bumping change:
+## Preconditions
 
-```text
-vp run changeset
-```
+- Work from a clean branch based on current `main`.
+- Use the Node.js and pnpm versions declared in `package.json`.
+- Do not edit `package.json` or `CHANGELOG.md` manually for a routine release.
+- GitHub Actions must be allowed to create pull requests.
+- The `npm-production` Environment must require review and permit deployments only from `main`.
+- npm Trusted Publisher must identify repository `hudrazine/pi-engineer`, workflow `publish.yml`, Environment `npm-production`, and the `npm publish` action.
+- Do not add an npm token. Publishing uses OIDC.
 
-Select `patch`, `minor`, or `major`, and describe the change for users. The changeset file (`.changeset/*.md`) is committed with the pull request. A pull request without a changeset simply does not trigger a version bump; no further action is needed.
+## Record A Release Intent
 
-## Versioning Flow
+Follow the policy in [`.changeset/README.md`](../../.changeset/README.md).
 
-1. Merged changesets accumulate on `main`.
-2. The [Version Packages workflow](../../../.github/workflows/version.yml) creates or updates one "Version Packages" pull request that bumps `package.json` and regenerates `CHANGELOG.md`.
-3. Review the pull request, then merge it.
-4. Tag and push the release:
+1. For a user-visible package change, run `vp run changeset`.
+2. Select the SemVer bump and write a concise user-facing summary.
+3. Commit the generated `.changeset/*.md` file with the implementation pull request.
+4. For documentation, CI, tests, or internal refactoring with no published behavior change, omit the changeset or use `vp run changeset --empty` when an explicit no-release record is useful.
 
-   ```text
-   git tag v<new-version>
-   git push origin v<new-version>
-   ```
+## Review And Publish A Release
 
-5. The tag push triggers the release workflow, which runs checks and tests and publishes to npm through Vite+ (`vp pm publish --no-git-checks`) with GitHub Actions OIDC Trusted Publishing.
-6. Create the GitHub Release manually, as in previous releases.
+1. After changesets reach `main`, the workflow selects version mode and creates or updates `chore(release): version package`.
+2. Review the version, consumed changesets, and `CHANGELOG.md`. If GitHub displays an approval banner for CI created by `GITHUB_TOKEN`, approve the workflow runs, then merge the release pull request after required checks pass.
+3. The resulting `main` push selects publish mode. The read-only verification job runs `vp run check`, `vp run test`, and `vp pm pack -- --dry-run --json`.
+4. Inspect the completed verification output, then explicitly approve the waiting `npm-production` deployment.
+5. Only the approved publish job has `id-token: write`. It runs `vp run release`; `prepublishOnly` repeats check and test during publication.
+6. Changesets publishes through npm Trusted Publisher, pushes `v<version>`, and creates the matching GitHub Release from the changelog entry.
 
-## Constraints
+## Verification
 
-- Never publish outside the release workflow. Bare `npm publish` fails with `EBADDEVENGINES`, and bare `pnpm publish` fails because `pnpm` is not on `PATH` (established during the v0.1.0 release).
-- The npm Trusted Publisher registration points at `release.yml` by filename; do not rename that workflow without updating npmjs.com settings.
-- This repository is private, so npm provenance is not generated regardless of publishing method.
+After publication:
+
+1. Confirm that npm `latest` resolves to the release-pull-request version and that the public package carries provenance.
+2. Confirm that the registry artifact contains only npm package metadata and documentation plus the `src` tree selected by `package.json`. It must not contain tests, `.engineering`, local state, or generated output.
+3. Confirm that the Git tag, GitHub Release, npm version, and `CHANGELOG.md` entry agree.
+4. Install the exact registry version in a clean Pi package directory and confirm `/pi-engineer status` reports that prompt replacement is active.
+
+The repository is public, so an OIDC publication of this public package is eligible for automatic npm provenance. The existing `0.1.0` artifact predates this automated flow and has no provenance attestation.
+
+## Failure Handling
+
+- If release-pull-request creation is denied, confirm that GitHub Actions may create pull requests; do not broaden unrelated workflow permissions.
+- If Changesets fails with `spawn pnpm ENOENT`, confirm that the directory returned by `vp env which pnpm` is added to `PATH` in the Changesets job.
+- If OIDC authentication fails, verify the exact repository, `publish.yml` filename, `npm-production` Environment, allowed npm action, GitHub-hosted runner, and `id-token: write` permission. Do not add an npm token as a fallback.
+- Do not approve `npm-production` when verification or package-file inspection is incomplete.
+- Published npm versions are immutable. Correct a bad artifact with a new patch version.

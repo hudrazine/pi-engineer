@@ -1,0 +1,163 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  select-mode:
+    name: Select release mode
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      mode: ${{ steps.changesets.outputs.mode }}
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Vite+ and install dependencies
+        uses: voidzero-dev/setup-vp@v1.17.0
+        with:
+          version-file: package.json
+          node-version-file: package.json
+          run-install: |
+            - args: ["--frozen-lockfile"]
+          cache: false
+
+      - name: Expose and verify pnpm
+        shell: bash
+        run: |
+          pnpm_dir=$(dirname "$(vp env which pnpm | head -n 1)")
+          echo "$pnpm_dir" >> "$GITHUB_PATH"
+          export PATH="$pnpm_dir:$PATH"
+          pnpm --version | grep -Fx "$(node -p "require('./package.json').devEngines.packageManager.version")"
+
+      - name: Select release mode
+        id: changesets
+        uses: changesets/action/select-mode@v2.1.1
+
+  version:
+    name: Create or update release pull request
+    if: needs.select-mode.outputs.mode == 'version'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Vite+ and install dependencies
+        uses: voidzero-dev/setup-vp@v1.17.0
+        with:
+          version-file: package.json
+          node-version-file: package.json
+          run-install: |
+            - args: ["--frozen-lockfile"]
+          cache: false
+
+      - name: Expose and verify pnpm
+        shell: bash
+        run: |
+          pnpm_dir=$(dirname "$(vp env which pnpm | head -n 1)")
+          echo "$pnpm_dir" >> "$GITHUB_PATH"
+          export PATH="$pnpm_dir:$PATH"
+          pnpm --version | grep -Fx "$(node -p "require('./package.json').devEngines.packageManager.version")"
+
+      - name: Create or update release pull request
+        uses: changesets/action/version@v2.1.1
+        with:
+          script: vp run version-packages
+          commit-message: "chore(release): version package"
+          pr-title: "chore(release): version package"
+
+  verify:
+    name: Verify release
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Vite+ and install dependencies
+        uses: voidzero-dev/setup-vp@v1.17.0
+        with:
+          version-file: package.json
+          node-version-file: package.json
+          run-install: |
+            - args: ["--frozen-lockfile"]
+          cache: false
+
+      - name: Check package
+        run: vp run check
+
+      - name: Test package
+        run: vp run test
+
+      - name: Inspect publish files
+        run: vp pm pack -- --dry-run --json
+
+  publish:
+    name: Publish to npm
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs:
+      - select-mode
+      - verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: npm-production
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Vite+ and install dependencies
+        uses: voidzero-dev/setup-vp@v1.17.0
+        with:
+          version-file: package.json
+          node-version-file: package.json
+          run-install: |
+            - args: ["--frozen-lockfile"]
+          cache: false
+          registry-url: https://registry.npmjs.org
+
+      - name: Expose and verify pnpm
+        shell: bash
+        run: |
+          pnpm_dir=$(dirname "$(vp env which pnpm | head -n 1)")
+          echo "$pnpm_dir" >> "$GITHUB_PATH"
+          export PATH="$pnpm_dir:$PATH"
+          pnpm --version | grep -Fx "$(node -p "require('./package.json').devEngines.packageManager.version")"
+
+      - name: Publish package and create release
+        uses: changesets/action/publish@v2.1.1
+        with:
+          script: vp run release
+          create-github-releases: true
+          push-git-tags: true

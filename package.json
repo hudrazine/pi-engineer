@@ -28,6 +28,8 @@
   },
   "scripts": {
     "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish",
     "test": "vp test",
     "check": "vp check",
     "prepublishOnly": "vp run check && vp run test"
