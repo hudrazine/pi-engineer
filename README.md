@@ -1,6 +1,6 @@
 # pi-engineer
 
-`pi-engineer` replaces Pi's default root system prompt with a portable software-engineering policy.
+`pi-engineer` replaces Pi's default root system prompt with a portable software-engineering policy and supplies two on-demand engineering Skills.
 
 Inspired by the behavioral principles of mature coding agents like Codex, it brings disciplined engineering judgment to Pi around scope, workspace protection, verification, and safety while keeping your tools, project context, Skills, and additive instructions intact.
 
@@ -8,10 +8,18 @@ Inspired by the behavioral principles of mature coding agents like Codex, it bri
 
 - **Scope & authorization**: Inspects and reports for read-only requests without modifying files. For implementation requests, modifies only relevant code and verifies changes autonomously.
 - **Ambiguity & judgment**: Resolves minor local details autonomously, but asks before making consequential architectural or scope choices.
+- **Engineering minimality**: Preserves correctness, contracts, and required defenses before minimizing unsupported complexity or change surface.
 - **Workspace protection**: Respects existing and uncommitted changes. Avoids unsolicited refactoring, cleanup, or destructive commands like `git reset --hard`.
 - **Destructive safety**: Refuses recursive deletion of protected roots (such as repository roots or home directories), even if explicitly requested.
 - **Progressive Skill usage**: Discovers available Agent Skills and loads their instructions only when needed.
 - **Ecosystem preservation**: Seamlessly preserves your tools, project instructions (`AGENTS.md`), custom additions (`APPEND_SYSTEM.md`), and working directory.
+
+## Bundled Skills
+
+- **`bounded-implementation`**: Contains unsupported scope, structure, dependencies, defenses, and drift while implementing a sufficiently resolved task in new or existing software.
+- **`subtractive-code-review`**: Reviews a completed task diff or bounded existing code area for evidence-backed deletion or simplification without removing required behavior or defenses.
+
+Each Skill works independently and loads through Pi's normal progressive disclosure. A completed non-trivial implementation may optionally hand off to subtractive review, but neither Skill requires the other.
 
 ## Installation
 
@@ -50,13 +58,14 @@ Toggle it back on the same way. Changes take effect the next time Pi starts; whi
 
 - **Additive instructions**: `APPEND_SYSTEM.md`, project instructions (`AGENTS.md`), and Skills are preserved and appended as usual.
 - **Explicit root prompts**: If a custom root prompt is set (via `SYSTEM.md`, `--system-prompt`, or a custom template), `pi-engineer` steps aside and disables itself for that run, notifying you once in interactive sessions.
+- **Skill overrides**: Same-name Skills resolve through Pi's `Project > User > Package` precedence, so a project or user Skill can replace either bundled default.
 
 ## Compatibility and Limitations
 
 - A recent Pi release is recommended. Older releases are not tested or guaranteed.
 - Built entirely on Pi's public Extension APIs and prompt helpers.
 - If another extension directly rewrites the system prompt, extension execution order determines the final result.
-- The policy is model-agnostic; individual models may still show slight probabilistic variations in edge cases.
+- The policy and Skills are model-agnostic. Skill selection remains probabilistic, so individual models may occasionally miss a matching Skill, load an adjacent Skill unnecessarily, or omit an optional review handoff. The Portable Core still supplies the universal correctness and scope baseline when a Skill is not selected.
 
 ## License
 

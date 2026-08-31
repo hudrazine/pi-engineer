@@ -174,3 +174,6 @@ vite.config.ts.timestamp-*
 # Notes
 .notes/
 .memories/
+
+# Local model-evaluation artifacts
+evaluation/results/

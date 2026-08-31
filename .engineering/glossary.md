@@ -12,7 +12,14 @@ The stable, model-independent and tool-independent behavioral policy maintained 
 
 - Preferred: Portable Core
 - Avoid: Codex prompt, Codex clone
-- See: [System Prompt Design](design/system-prompt.md#portable-core-v03)
+- See: [System Prompt Design](design/system-prompt.md#portable-core-v06)
+
+## Procedural Skill Layer
+
+The on-demand, progressively disclosed engineering procedures supplied by `pi-engineer` separately from the Portable Core. The accepted layer contains independently usable implementation-containment and subtractive-review Skills; it does not own repository contracts or deterministic enforcement.
+
+- See: [Engineering Skills Design](design/engineering-skills.md)
+- See: [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md)
 
 ## Root Prompt Replacement
 

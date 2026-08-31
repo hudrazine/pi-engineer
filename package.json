@@ -1,7 +1,7 @@
 {
   "name": "@hudrazine/pi-engineer",
   "version": "0.1.0",
-  "description": "A Pi Package that provides a portable software-engineering system prompt.",
+  "description": "A Pi Package that provides a portable software-engineering system prompt and on-demand engineering Skills.",
   "keywords": [
     "pi",
     "pi-extension",
@@ -19,7 +19,8 @@
     "url": "git+https://github.com/hudrazine/pi-engineer.git"
   },
   "files": [
-    "src"
+    "src",
+    "skills"
   ],
   "type": "module",
   "publishConfig": {
@@ -64,6 +65,9 @@
   "pi": {
     "extensions": [
       "./src/index.ts"
+    ],
+    "skills": [
+      "./skills"
     ]
   }
 }

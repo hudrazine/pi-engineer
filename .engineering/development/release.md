@@ -9,7 +9,7 @@ status: active
 
 `@hudrazine/pi-engineer@0.1.0`, Git tag `v0.1.0`, and its GitHub Release are published. Changesets owns subsequent package versions and `CHANGELOG.md` updates.
 
-A push to `main` runs the [release workflow](../../../.github/workflows/publish.yml), which creates or updates the release pull request, publishes an approved release, or exits without release work. The first Changesets-managed publication remains to be verified with the next user-visible package change.
+A push to `main` runs the [release workflow](../../.github/workflows/publish.yml), which creates or updates the release pull request, publishes an approved release, or exits without release work. The first Changesets-managed publication remains to be verified with the next user-visible package change.
 
 ## Preconditions
 
@@ -44,7 +44,7 @@ Follow the policy in [`.changeset/README.md`](../../.changeset/README.md).
 After publication:
 
 1. Confirm that npm `latest` resolves to the release-pull-request version and that the public package carries provenance.
-2. Confirm that the registry artifact contains only npm package metadata and documentation plus the `src` tree selected by `package.json`. It must not contain tests, `.engineering`, local state, or generated output.
+2. Confirm that the registry artifact contains only npm package metadata and documentation plus the `src` and `skills` trees selected by `package.json`. It must not contain tests, `.engineering`, local state, or generated output.
 3. Confirm that the Git tag, GitHub Release, npm version, and `CHANGELOG.md` entry agree.
 4. Install the exact registry version in a clean Pi package directory and confirm `/pi-engineer status` reports that prompt replacement is active.
 

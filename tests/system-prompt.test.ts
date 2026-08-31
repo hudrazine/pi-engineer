@@ -23,8 +23,8 @@ const skill: Skill = {
 };
 
 const acceptedPortableCore = {
-  version: "0.5",
-  sha256: "7b99d53dd6dd2ab2db0aa69006e592b80f1086a89056398cb92f4ab6d89ce001",
+  version: "0.6",
+  sha256: "c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4",
 } as const;
 
 const shellDiscoveryGuideline =
@@ -43,6 +43,27 @@ test("clarifies unresolved consequential choices without suppressing local auton
   expect(PORTABLE_CORE).toContain(
     "An explicit request to implement does not resolve a consequential choice that the request explicitly leaves undecided. Stop before editing and request that decision; continue to choose minor, local, reversible details yourself.",
   );
+});
+
+test("defines the accepted engineering priority and stopping baseline", () => {
+  expect(PORTABLE_CORE).toContain(
+    "Use this decision priority: (1) satisfy the current requirement correctly; (2) preserve applicable contracts, invariants, security controls, required defenses, and verified behavior; (3) reuse established mechanisms when valid approaches are semantically equivalent; (4) avoid unsupported complexity and change surface. Do not optimize code or diff size at the expense of a higher priority.",
+  );
+  expect(PORTABLE_CORE).toContain(
+    "Once the requested outcome is implemented and verified in proportion to its scope and risk, stop rather than continuing unrelated improvement.",
+  );
+});
+
+test("keeps implementation and subtractive-review procedures outside the Portable Core", () => {
+  for (const proceduralTerm of [
+    "Change Envelope",
+    "Evidence Gate",
+    "DELETE candidate",
+    "SIMPLIFY candidate",
+    "drift response",
+  ]) {
+    expect(PORTABLE_CORE).not.toContain(proceduralTerm);
+  }
 });
 
 test("defines protected roots, their non-overridable boundary, and safe alternatives", () => {
@@ -110,7 +131,6 @@ Second instructions
 </project_instructions>
 
 </project_context>`);
-  expect(prompt.indexOf("First instructions")).toBeLessThan(prompt.indexOf("Second instructions"));
   expect(prompt).toContain("<available_skills>");
   expect(prompt).toContain("release-check");
   expect(buildPiEngineerPrompt({ ...options, selectedTools: [] })).not.toContain("release-check");
