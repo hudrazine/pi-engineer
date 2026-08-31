@@ -4,6 +4,8 @@ status: accepted
 
 # ADR-0002: Separate Portable Policy from Runtime Context
 
+> Terminology note: Current documentation calls these components the Engineering Policy and Runtime Context. This record retains the original Portable Core and Runtime Layer names.
+
 ## Context
 
 The source behavioral guidance includes both general engineering judgment and product-specific procedures. Pi sessions can vary by model, active tools, Extensions, operating system, project instructions, and Skills.

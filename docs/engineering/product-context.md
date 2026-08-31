@@ -39,11 +39,11 @@ The persistent prompt defines how the agent makes decisions. A tool, Skill, proj
 
 The agent should perform relevant read-only inspection and routine in-scope implementation without unnecessary questions. It must stop before actions that require materially different scope, authority, external effects, or unresolved consequential choices.
 
-### Small portable core
+### Small, portable policy
 
 The stable policy must not depend on a model name, a fixed Pi tool set, a particular shell or operating system, a UI renderer, an optional Extension, or an individual repository.
 
-The package provides a model-agnostic behavioral baseline. It does not optimize the shared Portable Core for an individual provider or model, and it does not promise identical probabilistic behavior across Pi's supported models.
+The package provides a model-agnostic behavioral baseline. It does not optimize the shared Engineering Policy for an individual provider or model, and it does not promise identical probabilistic behavior across Pi's supported models.
 
 ### Progressive procedural depth
 
@@ -66,14 +66,14 @@ The user's workspace and external resources remain user-owned. The agent must no
 
 The accepted behavior is defined by the [System Prompt Design](system-prompt.md) and [Engineering Skills Design](engineering-skills.md). At minimum, the package must:
 
-- provide the accepted Portable Core;
+- provide the accepted Engineering Policy;
 - assemble the runtime sections in the accepted order;
 - preserve supported Pi runtime inputs without semantic rewriting;
 - defer to an explicit custom system prompt instead of automatically merging two root policies;
 - avoid non-deterministic prompt content;
 - expose `bounded-implementation` and `subtractive-code-review` as independently usable Package Skills;
 - preserve Pi's `Project > User > Package` resolution when names collide;
-- keep procedural Skill behavior separate from universal Portable Core policy;
+- keep procedural Skill behavior separate from the universal Engineering Policy;
 - expose known compatibility limitations rather than implying universal Extension interoperability.
 
 ## Non-goals
@@ -86,7 +86,7 @@ The package will not:
 - override repository instructions, project or user Skills, or tool descriptions;
 - create or enforce repository-specific requirements, architecture, test strategy, lint rules, CI, or fixed code-size limits;
 - define framework-specific engineering conventions;
-- optimize the Portable Core for individual providers or models, or maintain model-specific prompt variants;
+- optimize the Engineering Policy for individual providers or models, or maintain model-specific prompt variants;
 - parse Pi's rendered default prompt or recover arbitrary edits made directly by other Extensions;
 - become a general policy framework for non-engineering agents.
 
@@ -97,7 +97,7 @@ The product is successful when:
 - the package loads as a Pi Extension and performs root prompt replacement when eligible;
 - the assembled prompt satisfies the invariants in the system-prompt design;
 - deterministic unit tests cover assembly, omission, ordering, and conflict behavior;
-- the required Core and Skill behavior scenarios have been evaluated and material failures are either corrected or explicitly accepted and documented as non-blocking known limitations;
+- the required Policy and Skill behavior scenarios have been evaluated and material failures are either corrected or explicitly accepted and documented as non-blocking known limitations;
 - the Package Skills are discoverable, independently usable, and replaceable by project or user Skills;
 - required correctness, preservation, safety, authorization, and verification gates take priority over reduction metrics;
 - installation, usage, custom-prompt precedence, and compatibility limits are documented for users;

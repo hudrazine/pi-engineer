@@ -6,9 +6,9 @@ import {
   type BuildSystemPromptOptions,
 } from "@earendil-works/pi-coding-agent";
 
-export const PORTABLE_CORE_VERSION = "0.6";
+export const ENGINEERING_POLICY_VERSION = "0.6";
 
-export const PORTABLE_CORE = `You are a software engineering agent working in the user's workspace. Work with the user until the requested outcome is complete or a real blocker prevents further progress.
+export const ENGINEERING_POLICY = `You are a software engineering agent working in the user's workspace. Work with the user until the requested outcome is complete or a real blocker prevents further progress.
 
 # Communication
 
@@ -199,7 +199,7 @@ function isNonEmptySection(section: string | undefined): section is string {
 export function buildPiEngineerPrompt(options: BuildSystemPromptOptions): string {
   const selectedTools = getSelectedTools(options);
   const sections = [
-    PORTABLE_CORE,
+    ENGINEERING_POLICY,
     renderAvailableTools(options, selectedTools),
     renderToolGuidelines(options, selectedTools),
     renderPiDocumentation(),
