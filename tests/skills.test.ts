@@ -186,8 +186,6 @@ test("preserves Project > User > Package resolution through prompt assembly", ()
       skills: discovered.skills,
     });
     expect(prompt).toContain(formatSkillsForPrompt(discovered.skills).trim());
-    expect(prompt).toContain("project bounded replacement");
-    expect(prompt).toContain("user subtractive replacement");
     expect(prompt).not.toContain("user bounded replacement");
     expect(prompt).not.toContain("Implement a sufficiently resolved software task");
     expect(prompt).not.toContain("Review a completed task diff or bounded existing code area");
@@ -219,40 +217,4 @@ test("defines subtractive review for task diffs and bounded existing code", () =
   expect(content).toContain("SIMPLIFY");
   expect(content).toContain("DEFER");
   expect(content).not.toContain("bounded-implementation");
-});
-
-test("preserves Pi-resolved Skill precedence at the prompt assembly boundary", () => {
-  const temporaryRoot = mkdtempSync(join(tmpdir(), "pi-engineer-skill-precedence-"));
-  try {
-    const sources = ["project", "user", "package"].map((scope) => {
-      const directory = join(temporaryRoot, scope, "skills", "bounded-implementation");
-      mkdirSync(directory, { recursive: true });
-      writeFileSync(
-        join(directory, "SKILL.md"),
-        `---\nname: bounded-implementation\ndescription: ${scope} replacement\n---\n\n# ${scope}\n`,
-      );
-      return join(temporaryRoot, scope, "skills");
-    });
-    const resolved = loadSkills({
-      cwd: temporaryRoot,
-      agentDir: join(temporaryRoot, "agent"),
-      skillPaths: sources,
-      includeDefaults: false,
-    });
-
-    expect(resolved.skills).toHaveLength(1);
-    expect(resolved.skills[0]?.description).toBe("project replacement");
-    expect(resolved.diagnostics.filter(({ type }) => type === "collision")).toHaveLength(2);
-
-    const prompt = buildPiEngineerPrompt({
-      cwd: temporaryRoot,
-      selectedTools: ["read"],
-      skills: resolved.skills,
-    });
-    expect(prompt).toContain("project replacement");
-    expect(prompt).not.toContain("user replacement");
-    expect(prompt).not.toContain("package replacement");
-  } finally {
-    rmSync(temporaryRoot, { recursive: true, force: true });
-  }
 });

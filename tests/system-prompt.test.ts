@@ -131,7 +131,6 @@ Second instructions
 </project_instructions>
 
 </project_context>`);
-  expect(prompt.indexOf("First instructions")).toBeLessThan(prompt.indexOf("Second instructions"));
   expect(prompt).toContain("<available_skills>");
   expect(prompt).toContain("release-check");
   expect(buildPiEngineerPrompt({ ...options, selectedTools: [] })).not.toContain("release-check");
