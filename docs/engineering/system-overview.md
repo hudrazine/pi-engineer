@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository is a TypeScript Pi Package. Its manifest points Pi at `src/index.ts`, which registers the Extension lifecycle and status command. `src/system-prompt.ts` owns the Portable Core and deterministic Runtime Layer assembly.
+The repository is a TypeScript Pi Package. Its manifest points Pi at `src/index.ts`, which registers the Extension lifecycle and status command. `src/system-prompt.ts` owns the Engineering Policy and deterministic Runtime Context assembly.
 
 The package contains the accepted `bounded-implementation` and `subtractive-code-review` Skills under its published `skills` resource. Their deterministic contracts, isolated Pi 0.84.2 Package discovery, precedence, and staged behavior evaluation pass the required gates. Known non-blocking behavior limitations are recorded in the [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
 
@@ -20,17 +20,17 @@ The entry point registers a `before_agent_start` handler. It decides whether `pi
 
 If `systemPromptOptions.customPrompt` is present, the entry point preserves that explicit root prompt and does not run root replacement. On the first affected `before_agent_start` event in a session, it emits one short notification when `ctx.hasUI` is true. Later events in the same session remain silent.
 
-The Extension also registers `/pi-engineer status`. The command reports whether replacement is active, why it is inactive when applicable, and the Package and Portable Core versions. Command handlers can inspect the current base prompt options through the public command context.
+The Extension also registers `/pi-engineer status`. The command reports whether replacement is active, why it is inactive when applicable, and the installed Package version. Command handlers can inspect the current base prompt options through the public command context.
 
-### Portable Core
+### Engineering Policy
 
-The Portable Core is stable behavioral text. It has no knowledge of active tools, paths, project files, Skills, model identity, timestamps, or Extension ordering.
+The Engineering Policy is stable behavioral text. It remains portable because it has no knowledge of active tools, paths, project files, Skills, model identity, timestamps, or Extension ordering.
 
-Its accepted content is owned by the [System Prompt Design](system-prompt.md#portable-core-v06).
+Its accepted content is owned by the [System Prompt Design](system-prompt.md#engineering-policy-v06).
 
-### Runtime Layer
+### Runtime Context
 
-The Runtime Layer consumes Pi's structured `BuildSystemPromptOptions` and renders dynamic sections without re-discovering resources. It owns conditional tool policy, Pi documentation paths, project-context formatting, Skills formatting, and environment rendering.
+The Runtime Context consumes Pi's structured `BuildSystemPromptOptions` and renders dynamic sections without re-discovering resources. It owns conditional tool policy, Pi documentation paths, project-context formatting, Skills formatting, and environment rendering.
 
 ### Section assembler
 
@@ -38,7 +38,7 @@ The assembler joins non-empty static and dynamic sections in the accepted order.
 
 ### Procedural Skill Layer
 
-The Package exposes `bounded-implementation` and `subtractive-code-review` through Pi's normal Skill resource mechanism. The Skills remain outside the Portable Core, load through progressive disclosure, complete independently, and may cooperate only through a semantic task-state handoff.
+The Package exposes `bounded-implementation` and `subtractive-code-review` through Pi's normal Skill resource mechanism. The Skills remain outside the Engineering Policy, load through progressive disclosure, complete independently, and may cooperate only through a semantic task-state handoff.
 
 Their accepted behavioral contract is owned by the [Engineering Skills Design](engineering-skills.md). Pi continues to own discovery and `Project > User > Package` precedence.
 
@@ -57,7 +57,7 @@ before_agent_start
        eligibility confirmed
                │
                ▼
-Portable Core + Runtime Layer renderers
+Engineering Policy + Runtime Context renderers
                │
                ▼
       ordered section assembly
@@ -78,7 +78,7 @@ Pi discovers Package, User, and Project Skills
         Pi resolves precedence and visibility
                          │
                          ▼
-       Runtime Layer formats the visible catalog
+       Runtime Context formats the visible catalog
                          │
                          ▼
       Agent loads a Skill only when the task matches
@@ -104,7 +104,7 @@ Pi provides these public APIs at runtime, and the core package is declared as a 
 
 - Root prompt replacement is order-sensitive with other `before_agent_start` handlers. Changes from earlier direct prompt rewriters may be lost; later rewriters may change the `pi-engineer` result.
 - `pi-engineer` guarantees preservation only for supported structured inputs, not arbitrary text mutations made by other Extensions.
-- The Runtime Layer must preserve Pi-resolved context-file order and must not repeat discovery, precedence, sorting, or deduplication.
+- The Runtime Context must preserve Pi-resolved context-file order and must not repeat discovery, precedence, sorting, or deduplication.
 - The Skills catalog is emitted only under the same `read`-tool condition used by Pi's custom-prompt behavior.
 - Package Skills must rely on Pi's discovery and `Project > User > Package` precedence rather than implementing collision handling.
 - Neither Package Skill may require the other by name or availability.
@@ -124,4 +124,4 @@ Pi provides these public APIs at runtime, and the core package is declared as a 
 
 Automated prompt-builder and Extension-registration tests verify the implemented prompt boundaries. The completed [Initial Implementation Plan](plans/archive/initial-implementation.md) and [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md) preserve the baseline delivery and evaluation evidence.
 
-Portable Core v0.6 and both Package Skills pass deterministic and staged evaluation. The Package Skills are discoverable from an isolated Pi 0.84.2 Package installation and replaceable through `Project > User > Package` precedence. The final behavior disposition accepts the current implementation, and the completed [Engineering Minimality Policy and Skills Plan](plans/archive/engineering-minimality-policy-and-skills.md#release-readiness-result) records release readiness.
+Engineering Policy v0.6 and both Package Skills pass deterministic and staged evaluation. The Package Skills are discoverable from an isolated Pi 0.84.2 Package installation and replaceable through `Project > User > Package` precedence. The final behavior disposition accepts the current implementation, and the completed [Engineering Minimality Policy and Skills Plan](plans/archive/engineering-minimality-policy-and-skills.md#release-readiness-result) records release readiness.

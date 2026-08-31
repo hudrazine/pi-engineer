@@ -4,8 +4,8 @@ import { createHash } from "node:crypto";
 import { expect, test } from "vite-plus/test";
 import {
   buildPiEngineerPrompt,
-  PORTABLE_CORE,
-  PORTABLE_CORE_VERSION,
+  ENGINEERING_POLICY,
+  ENGINEERING_POLICY_VERSION,
 } from "../src/system-prompt.ts";
 
 const skill: Skill = {
@@ -22,7 +22,7 @@ const skill: Skill = {
   },
 };
 
-const acceptedPortableCore = {
+const acceptedEngineeringPolicy = {
   version: "0.6",
   sha256: "c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4",
 } as const;
@@ -32,29 +32,29 @@ const shellDiscoveryGuideline =
 const shellSafetyGuideline =
   "Do not repurpose standard environment variables for task-local values. Use explicit task-specific paths where safety matters, and avoid interpolation that could execute text or expose sensitive values unintentionally.";
 
-test("keeps the accepted Portable Core bytes stable", () => {
+test("keeps the accepted Engineering Policy bytes stable", () => {
   expect({
-    version: PORTABLE_CORE_VERSION,
-    sha256: createHash("sha256").update(PORTABLE_CORE).digest("hex"),
-  }).toEqual(acceptedPortableCore);
+    version: ENGINEERING_POLICY_VERSION,
+    sha256: createHash("sha256").update(ENGINEERING_POLICY).digest("hex"),
+  }).toEqual(acceptedEngineeringPolicy);
 });
 
 test("clarifies unresolved consequential choices without suppressing local autonomy", () => {
-  expect(PORTABLE_CORE).toContain(
+  expect(ENGINEERING_POLICY).toContain(
     "An explicit request to implement does not resolve a consequential choice that the request explicitly leaves undecided. Stop before editing and request that decision; continue to choose minor, local, reversible details yourself.",
   );
 });
 
 test("defines the accepted engineering priority and stopping baseline", () => {
-  expect(PORTABLE_CORE).toContain(
+  expect(ENGINEERING_POLICY).toContain(
     "Use this decision priority: (1) satisfy the current requirement correctly; (2) preserve applicable contracts, invariants, security controls, required defenses, and verified behavior; (3) reuse established mechanisms when valid approaches are semantically equivalent; (4) avoid unsupported complexity and change surface. Do not optimize code or diff size at the expense of a higher priority.",
   );
-  expect(PORTABLE_CORE).toContain(
+  expect(ENGINEERING_POLICY).toContain(
     "Once the requested outcome is implemented and verified in proportion to its scope and risk, stop rather than continuing unrelated improvement.",
   );
 });
 
-test("keeps implementation and subtractive-review procedures outside the Portable Core", () => {
+test("keeps implementation and subtractive-review procedures outside the Engineering Policy", () => {
   for (const proceduralTerm of [
     "Change Envelope",
     "Evidence Gate",
@@ -62,20 +62,20 @@ test("keeps implementation and subtractive-review procedures outside the Portabl
     "SIMPLIFY candidate",
     "drift response",
   ]) {
-    expect(PORTABLE_CORE).not.toContain(proceduralTerm);
+    expect(ENGINEERING_POLICY).not.toContain(proceduralTerm);
   }
 });
 
 test("defines protected roots, their non-overridable boundary, and safe alternatives", () => {
-  expect(PORTABLE_CORE).toContain(
+  expect(ENGINEERING_POLICY).toContain(
     "Treat a home directory, filesystem root, workspace root, repository root, or another broad collection of user data as a protected root. Explicit user authorization does not make a protected root a valid target for recursive destruction.",
   );
-  expect(PORTABLE_CORE).toContain(
+  expect(ENGINEERING_POLICY).toContain(
     "If a request targets a protected root, stop before invoking a destructive tool. Explain the boundary and ask for a narrower child target. If the user intends to remove the entire workspace, direct them to do so outside the current agent session.",
   );
 });
 
-test("assembles the Portable Core and runtime sections in the accepted order", () => {
+test("assembles the Engineering Policy and runtime sections in the accepted order", () => {
   const prompt = buildPiEngineerPrompt({
     cwd: "C:\\workspace\\pi-engineer",
     selectedTools: ["bash"],
@@ -84,7 +84,7 @@ test("assembles the Portable Core and runtime sections in the accepted order", (
     appendSystemPrompt: "Use the repository release process.",
   });
 
-  expect(prompt).toBe(`${PORTABLE_CORE}
+  expect(prompt).toBe(`${ENGINEERING_POLICY}
 
 Available tools:
 - bash: Run commands

@@ -2,21 +2,22 @@
 
 ## Assembled System Prompt
 
-The complete system prompt produced for one Pi agent run by combining the Portable Core with the Runtime Layer output in the defined order.
+The complete system prompt produced for one Pi agent run by combining the Engineering Policy with the Runtime Context in the defined order.
 
 - See: [System Prompt Design](system-prompt.md)
 
-## Portable Core
+## Engineering Policy
 
 The stable, model-independent and tool-independent behavioral policy maintained by `pi-engineer`. It defines how the agent communicates, interprets authorization, works in a user-owned workspace, verifies changes, handles destructive actions, and uses Skills.
 
-- Preferred: Portable Core
+- Preferred: Engineering Policy
+- Formerly: Portable Core
 - Avoid: Codex prompt, Codex clone
-- See: [System Prompt Design](system-prompt.md#portable-core-v06)
+- See: [System Prompt Design](system-prompt.md#engineering-policy-v06)
 
 ## Procedural Skill Layer
 
-The on-demand, progressively disclosed engineering procedures supplied by `pi-engineer` separately from the Portable Core. The accepted layer contains independently usable implementation-containment and subtractive-review Skills; it does not own repository contracts or deterministic enforcement.
+The on-demand, progressively disclosed engineering procedures supplied by `pi-engineer` separately from the Engineering Policy. The accepted layer contains independently usable implementation-containment and subtractive-review Skills; it does not own repository contracts or deterministic enforcement.
 
 - See: [Engineering Skills Design](engineering-skills.md)
 - See: [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md)
@@ -28,10 +29,11 @@ Replacing Pi's default root system prompt for an agent run, rather than appendin
 - Preferred: root prompt replacement
 - See: [ADR-0001](decisions/0001-replace-root-system-prompt-in-extension.md)
 
-## Runtime Layer
+## Runtime Context
 
-The adapter that converts Pi's structured system-prompt inputs into the dynamic sections appended after the Portable Core. It preserves Pi-owned runtime information without re-discovering or redefining it.
+The dynamic sections produced from Pi's structured system-prompt inputs and appended after the Engineering Policy. They preserve Pi-owned runtime information without re-discovering or redefining it.
 
-- Preferred: Runtime Layer
+- Preferred: Runtime Context
+- Formerly: Runtime Layer
 - Avoid: Pi default prompt copy
 - See: [System Overview](system-overview.md)

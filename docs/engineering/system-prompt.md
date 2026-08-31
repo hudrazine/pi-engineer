@@ -10,19 +10,19 @@ The implementation and scoped v0.1 behavior evaluation are complete. The accepte
 
 The assembled prompt has two conceptual layers:
 
-1. the Portable Core, which defines stable engineering behavior;
-2. the Runtime Layer output, which connects that policy to the current Pi session.
+1. the Engineering Policy, which defines stable engineering behavior;
+2. the Runtime Context, which connects that policy to the current Pi session.
 
-The Portable Core defines policy rather than procedures. Runtime-specific instructions belong to the component with enough context to make them accurate.
+The Engineering Policy defines policy rather than procedures. Runtime-specific instructions belong to the component with enough context to make them accurate.
 
-Procedural engineering Skills are separate Package resources, not a third static prompt layer. Only their Pi-formatted discovery entries appear in the Runtime Layer, and their full instructions load on demand. The accepted boundary is recorded in [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md).
+Procedural engineering Skills are separate Package resources, not a third static prompt layer. Only their Pi-formatted discovery entries appear in the Runtime Context, and their full instructions load on demand. The accepted boundary is recorded in [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md).
 
 ## Assembly Order
 
 Non-empty sections are assembled in this order:
 
 ```text
-Portable Core v0.6
+Engineering Policy v0.6
 → Available tools
 → Tool guidelines
 → Pi documentation
@@ -51,7 +51,7 @@ This places stable behavioral policy before current capabilities and preserves P
 
 An explicit `customPrompt` disables root replacement for that run. The first affected `before_agent_start` event in each session emits one concise notification when `ctx.hasUI` is true. A session-local flag prevents repeated notification on later agent runs.
 
-The `/pi-engineer status` command provides an explicit inspection path. It reports active or inactive replacement state, the inactive reason when applicable, the Package version, and the Portable Core version. It must not expose prompt content or loaded context-file contents.
+The `/pi-engineer status` command provides an explicit inspection path. It reports active or inactive replacement state, the inactive reason when applicable, and the installed Package version. The internal Engineering Policy revision remains available in source and maintainer documentation but is not part of the user-facing status. The command must not expose prompt content or loaded context-file contents.
 
 ## Available Tools
 
@@ -71,7 +71,7 @@ For version 0.1, `pi-engineer` adds only these conditional policies:
 - when `bash` is active and no dedicated `grep`, `find`, or `ls` tool is active, use available shell utilities for repository discovery and prefer efficient tools such as `rg` when available;
 - when `bash` is active, do not repurpose standard environment variables for task-local values, use explicit task-specific paths where safety matters, and avoid interpolation that could execute text or expose sensitive values unintentionally.
 
-The Runtime Layer does not restate ordinary `read`, `edit`, or `write` procedures that belong to tool schemas or snippets. It also does not add general concision or file-path formatting rules already owned by the Portable Core or Pi.
+The Runtime Context does not restate ordinary `read`, `edit`, or `write` procedures that belong to tool schemas or snippets. It also does not add general concision or file-path formatting rules already owned by the Engineering Policy or Pi.
 
 ## Pi Documentation
 
@@ -99,11 +99,11 @@ Project-specific instructions and guidelines:
 </project_context>
 ```
 
-The Runtime Layer must not discover, sort, deduplicate, or resolve precedence among context files. Pi owns those operations; `pi-engineer` renders the received values in order.
+The Runtime Context must not discover, sort, deduplicate, or resolve precedence among context files. Pi owns those operations; `pi-engineer` renders the received values in order.
 
 ## Skills
 
-The Portable Core defines when and how Skills should be used. The Runtime Layer defines which Skills are currently available by delegating to `formatSkillsForPrompt()`.
+The Engineering Policy defines when and how Skills should be used. The Runtime Context defines which Skills are currently available by delegating to `formatSkillsForPrompt()`.
 
 The catalog is emitted only when `read` is active and at least one visible Skill remains after Pi's formatter rules. `pi-engineer` does not introduce a competing discovery format.
 
@@ -113,11 +113,11 @@ The accepted Package Skills use this existing path without changing assembly sem
 
 Version 0.1 renders only the current working directory. It does not include a timestamp, session identifier, random value, model name, or other volatile fact.
 
-## Portable Core v0.6
+## Engineering Policy v0.6
 
-The exact v0.6 Portable Core text, whitespace, and line breaks are owned by [`src/system-prompt.ts`](../../src/system-prompt.ts). Tests protect version `0.6`, SHA-256 `c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4`, representative assembly, and the policy-procedure boundary.
+The exact v0.6 Engineering Policy text, whitespace, and line breaks are owned by [`src/system-prompt.ts`](../../src/system-prompt.ts). Tests protect version `0.6`, SHA-256 `c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4`, representative assembly, and the policy-procedure boundary.
 
-Portable Core v0.6 preserves the v0.5 authorization, ambiguity, workspace, verification, Safety, and Skill behavior. It adds only the universal decision priority accepted by [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md): correctness and current requirements; protection of contracts, invariants, security, required defenses, and verified behavior; reuse of semantically equivalent established mechanisms; avoidance of unsupported complexity and change surface; and stopping after proportional verification.
+Engineering Policy v0.6 preserves the v0.5 authorization, ambiguity, workspace, verification, Safety, and Skill behavior. It adds only the universal decision priority accepted by [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md): correctness and current requirements; protection of contracts, invariants, security, required defenses, and verified behavior; reuse of semantically equivalent established mechanisms; avoidance of unsupported complexity and change surface; and stopping after proportional verification.
 
 The revision does not add localization, Change Envelopes, Evidence Gates, drift handling, reduction classifications, or subtractive-review procedure. Those remain in the [Engineering Skills Design](engineering-skills.md). Version 0.6 passes deterministic checks and all condition-B required gates and is accepted by the [final behavior disposition](plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
 
@@ -128,7 +128,7 @@ The revision does not add localization, Change Envelopes, Evidence Gates, drift 
 - Input order is preserved unless exact stable deduplication is explicitly defined.
 - An explicit custom root prompt wins over `pi-engineer` root replacement.
 - Missing optional runtime data does not cause the prompt to claim that a capability exists.
-- The Runtime Layer does not re-discover resources Pi has already resolved.
+- The Runtime Context does not re-discover resources Pi has already resolved.
 - Failure to apply a nonessential optional section must not silently produce a misleading prompt; the implementation should either omit it according to the contract or surface an actionable initialization failure.
 
 ## Compatibility Contract
@@ -145,7 +145,7 @@ The revision does not add localization, Change Envelopes, Evidence Gates, drift 
 
 It does not guarantee preservation of arbitrary direct `systemPrompt` rewrites performed by other Extensions. `before_agent_start` handlers are chained, so their ordering remains observable.
 
-The compatibility contract covers prompt assembly and the intended behavioral baseline, not identical compliance across every model available through Pi. Model behavior remains probabilistic; model-specific deviations are evaluated and documented but do not automatically require specialization of the Portable Core.
+The compatibility contract covers prompt assembly and the intended behavioral baseline, not identical compliance across every model available through Pi. Model behavior remains probabilistic; model-specific deviations are evaluated and documented but do not automatically require specialization of the Engineering Policy.
 
 ## Behavior Evaluation Scenarios
 
@@ -198,7 +198,7 @@ Deterministic prompt-builder behavior is separate from these scenarios and is co
 21. A small localized change receives focused proportional verification.
 22. When full verification cannot run, reasonable partial checks are performed and the limitation is reported.
 
-### Version 0.1 Core Evaluation Scope
+### Version 0.1 Policy Evaluation Scope
 
 1. **Scope and read-only invariant (scenarios 1 and 2):** a combined review and diagnosis request inspects and reports without changing files.
 2. **Autonomy and completion (scenario 3):** a focused fix request diagnoses, changes only relevant code, and verifies the result without unnecessary confirmation.
@@ -209,11 +209,11 @@ Deterministic prompt-builder behavior is separate from these scenarios and is co
 
 The v0.1 procedure, deferred-case reasons, prompts, evidence, and results are recorded in the archived [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md).
 
-The staged comparison and fixtures for the accepted Core refinement and Package Skills are preserved in the [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md). They do not alter this record of the implemented v0.5 evaluation.
+The staged comparison and fixtures for the accepted Policy refinement and Package Skills are preserved in the [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md). They do not alter this record of the implemented v0.5 evaluation.
 
 ## Tradeoffs and Resolved Implementation Decisions
 
-The design accepts a smaller maintenance surface at the cost of not preserving arbitrary prompt rewrites from other Extensions. It also accepts some overlap between the Portable Core's Skill policy and Pi's formatter instructions because they own different responsibilities.
+The design accepts a smaller maintenance surface at the cost of not preserving arbitrary prompt rewrites from other Extensions. It also accepts some overlap between the Engineering Policy's Skill policy and Pi's formatter instructions because they own different responsibilities.
 
 Detailed implementation-containment and subtractive-review procedures remain outside this prompt design under [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md).
 
@@ -222,5 +222,5 @@ The implementation follows these resolved choices:
 - an explicit custom prompt produces at most one UI notification per session, at the first affected `before_agent_start` event;
 - `/pi-engineer status` provides on-demand state inspection;
 - prompt-builder behavior is automated, while model behavior scenarios remain manual initially;
-- the Portable Core remains provider- and model-agnostic; the DeepSeek v0.5 Ambiguity result and GPT Luna recoverability-reporting result are accepted as non-blocking known limitations rather than reasons for model-specific prompt tuning;
-- the Portable Core TypeScript constant becomes the sole exact-text authority when implemented.
+- the Engineering Policy remains provider- and model-agnostic; the DeepSeek v0.5 Ambiguity result and GPT Luna recoverability-reporting result are accepted as non-blocking known limitations rather than reasons for model-specific prompt tuning;
+- the Engineering Policy TypeScript constant becomes the sole exact-text authority when implemented.

@@ -10,7 +10,7 @@ The Package implements and publishes both accepted Skills through its Pi and npm
 
 | Owner                      | Responsibility                                                                                          |
 | -------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Portable Core              | Universal correctness, preservation, reuse, justified-complexity, verification, and stopping principles |
+| Engineering Policy         | Universal correctness, preservation, reuse, justified-complexity, verification, and stopping principles |
 | `bounded-implementation`   | Construct the required implementation while containing unsupported scope and structure                  |
 | `subtractive-code-review`  | Find and, when authorized, apply evidence-backed deletion or simplification                             |
 | Repository instructions    | Local architecture, conventions, commands, prohibitions, and precedence                                 |
@@ -21,7 +21,7 @@ The Skills consume relevant repository-owned context and checks when available. 
 
 ## Shared Decision Priority
 
-Both Skills apply the Portable Core's priority order without restating its full policy:
+Both Skills apply the Engineering Policy's priority order without restating its full policy:
 
 1. satisfy the current requirement correctly;
 2. preserve applicable contracts, invariants, security controls, required defenses, and verified behavior;
@@ -68,7 +68,7 @@ Before editing, determine from the available authoritative context:
 - explicit constraints, non-goals, and accepted architecture;
 - evidence that can verify the result.
 
-Resolve minor, local, reversible choices from repository evidence and normal engineering judgment. If unresolved interpretations would materially change external behavior, architecture, risk, or the task contract, stop before editing and request the decision under the Portable Core's ambiguity boundary.
+Resolve minor, local, reversible choices from repository evidence and normal engineering judgment. If unresolved interpretations would materially change external behavior, architecture, risk, or the task contract, stop before editing and request the decision under the Engineering Policy's ambiguity boundary.
 
 ### Resolve Implementation Context
 
@@ -216,7 +216,7 @@ Stop when no further evidence-backed reduction remains. Report DELETE and SIMPLI
 
 Each Skill must establish its own inputs, permissions, evidence, and completion conditions. Neither is a required dependency of the other. A project or user Skill with the same name may replace the Package default through Pi's `Project > User > Package` precedence; Package Skills must not assume that an overridden Skill preserves this design.
 
-The Package must not add a separate orchestrator solely to force the two Skills into a pipeline. Cooperation remains a task-state decision made through normal Skill discovery and the Portable Core's smallest-applicable-set policy.
+The Package must not add a separate orchestrator solely to force the two Skills into a pipeline. Cooperation remains a task-state decision made through normal Skill discovery and the Engineering Policy's smallest-applicable-set policy.
 
 ## Evaluation Contract
 
@@ -228,7 +228,7 @@ Behavior evaluation must distinguish:
 - Task Diff Mode from Existing Code Mode;
 - independent Skill behavior from optional handoff behavior;
 - safe uncertainty and DEFER from unsupported deletion;
-- current Core, revised Core, and Skill effects.
+- current Policy, revised Policy, and Skill effects.
 
 Correctness, contract preservation, required defenses, authorization, bounded scope, and proportional verification are mandatory gates. Reuse, fewer unsupported concepts, fewer unrelated hunks, supported deletion, and timely stopping are improvement outcomes. LOC and changed-file counts remain secondary diagnostics.
 

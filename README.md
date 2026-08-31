@@ -1,6 +1,6 @@
 # pi-engineer
 
-`pi-engineer` replaces Pi's default root system prompt with a portable software-engineering policy and supplies two on-demand engineering Skills.
+`pi-engineer` replaces Pi's default root system prompt with a built-in software-engineering policy and supplies two on-demand engineering Skills.
 
 Inspired by the behavioral principles of mature coding agents like Codex, it brings disciplined engineering judgment to Pi around scope, workspace protection, verification, and safety while keeping your tools, project context, Skills, and additive instructions intact.
 
@@ -43,7 +43,7 @@ Inspect status at any time:
 /pi-engineer status
 ```
 
-This reports whether prompt replacement is active, why it is inactive (if applicable), and the installed Package and Portable Core versions.
+This reports whether prompt replacement is active, why it is inactive (if applicable), and the installed version.
 
 ### Enable and Disable
 
@@ -65,7 +65,7 @@ Toggle it back on the same way. Changes take effect the next time Pi starts; whi
 - A recent Pi release is recommended. Older releases are not tested or guaranteed.
 - Built entirely on Pi's public Extension APIs and prompt helpers.
 - If another extension directly rewrites the system prompt, extension execution order determines the final result.
-- The policy and Skills are model-agnostic. Skill selection remains probabilistic, so individual models may occasionally miss a matching Skill, load an adjacent Skill unnecessarily, or omit an optional review handoff. The Portable Core still supplies the universal correctness and scope baseline when a Skill is not selected.
+- The policy and Skills are model-agnostic. Skill selection remains probabilistic, so individual models may occasionally miss a matching Skill, load an adjacent Skill unnecessarily, or omit an optional review handoff. The built-in policy still supplies the universal correctness and scope baseline when a Skill is not selected.
 
 ## License
 

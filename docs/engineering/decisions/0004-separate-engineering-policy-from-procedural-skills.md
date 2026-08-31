@@ -4,6 +4,8 @@ status: accepted
 
 # ADR-0004: Separate Engineering Policy from Procedural Skills
 
+> Terminology note: Current documentation calls the stable policy the Engineering Policy. This record retains its original Portable Core name.
+
 ## Context
 
 The Portable Core already defines cross-project scope discipline, preservation, autonomy, and proportional verification. Those persistent principles are necessary, but instructions such as "keep changes minimal" do not by themselves give an agent a reliable method for localizing a change, justifying new structure, detecting implementation drift, or performing an independent subtractive review.

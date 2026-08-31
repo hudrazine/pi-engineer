@@ -1,13 +1,13 @@
 import type { BuildSystemPromptOptions, ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import packageJson from "../package.json" with { type: "json" };
-import { buildPiEngineerPrompt, PORTABLE_CORE_VERSION } from "./system-prompt.ts";
+import { buildPiEngineerPrompt } from "./system-prompt.ts";
 
 function hasCustomPrompt(options: BuildSystemPromptOptions): boolean {
   return Boolean(options.customPrompt);
 }
 
 function getStatusMessage(options: BuildSystemPromptOptions): string {
-  const version = `package ${packageJson.version}, Portable Core ${PORTABLE_CORE_VERSION}`;
+  const version = `version ${packageJson.version}`;
   return hasCustomPrompt(options)
     ? `pi-engineer inactive: an explicit custom system prompt is active (${version}).`
     : `pi-engineer active (${version}).`;

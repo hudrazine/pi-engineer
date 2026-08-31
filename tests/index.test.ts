@@ -10,7 +10,7 @@ import type {
 import { expect, test } from "vite-plus/test";
 import packageJson from "../package.json" with { type: "json" };
 import piEngineer from "../src/index.ts";
-import { buildPiEngineerPrompt, PORTABLE_CORE_VERSION } from "../src/system-prompt.ts";
+import { buildPiEngineerPrompt } from "../src/system-prompt.ts";
 
 type BeforeAgentStartHandler = (
   event: BeforeAgentStartEvent,
@@ -53,7 +53,7 @@ function createCommandContext(notifications: Notification[], customPrompt?: stri
   } as unknown as Parameters<RegisteredCommand["handler"]>[1];
 }
 
-const version = `package ${packageJson.version}, Portable Core ${PORTABLE_CORE_VERSION}`;
+const version = `version ${packageJson.version}`;
 
 test("replaces Pi's root prompt only when no explicit custom prompt is active", async () => {
   const { beforeAgentStart } = registerExtension();
@@ -95,7 +95,7 @@ test("does not notify about a custom prompt when no UI is available", async () =
   expect(notifications).toEqual([]);
 });
 
-test("reports active status with current package and Portable Core versions", async () => {
+test("reports active status with the current package version", async () => {
   const { command } = registerExtension();
   const notifications: Notification[] = [];
 
