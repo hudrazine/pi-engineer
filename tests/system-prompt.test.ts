@@ -24,7 +24,7 @@ const skill: Skill = {
 
 const acceptedPortableCore = {
   version: "0.6",
-  sha256: "fbe65beacd7f3ac4a22bba085ffcd5eeb391c5b9a25ead82ca83b29500a0dfc4",
+  sha256: "c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4",
 } as const;
 
 const shellDiscoveryGuideline =
@@ -47,14 +47,7 @@ test("clarifies unresolved consequential choices without suppressing local auton
 
 test("defines the accepted engineering priority and stopping baseline", () => {
   expect(PORTABLE_CORE).toContain(
-    `Use this decision priority:
-
-1. Satisfy the current requirement correctly.
-2. Preserve applicable contracts, invariants, security controls, required defenses, and verified behavior.
-3. Reuse established mechanisms when valid approaches are semantically equivalent.
-4. Avoid unsupported complexity and change surface.
-
-Do not optimize code or diff size at the expense of a higher priority.`,
+    "Use this decision priority: (1) satisfy the current requirement correctly; (2) preserve applicable contracts, invariants, security controls, required defenses, and verified behavior; (3) reuse established mechanisms when valid approaches are semantically equivalent; (4) avoid unsupported complexity and change surface. Do not optimize code or diff size at the expense of a higher priority.",
   );
   expect(PORTABLE_CORE).toContain(
     "Once the requested outcome is implemented and verified in proportion to its scope and risk, stop rather than continuing unrelated improvement.",

@@ -120,7 +120,7 @@ Version 0.1 renders only the current working directory. It does not include a ti
 
 ## Portable Core v0.6
 
-The exact v0.6 Portable Core text, whitespace, and line breaks are owned by [`src/system-prompt.ts`](../../src/system-prompt.ts). Tests protect version `0.6`, SHA-256 `fbe65beacd7f3ac4a22bba085ffcd5eeb391c5b9a25ead82ca83b29500a0dfc4`, representative assembly, and the policy-procedure boundary.
+The exact v0.6 Portable Core text, whitespace, and line breaks are owned by [`src/system-prompt.ts`](../../src/system-prompt.ts). Tests protect version `0.6`, SHA-256 `c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4`, representative assembly, and the policy-procedure boundary.
 
 Portable Core v0.6 preserves the v0.5 authorization, ambiguity, workspace, verification, Safety, and Skill behavior. It adds only the universal decision priority accepted by [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md): correctness and current requirements; protection of contracts, invariants, security, required defenses, and verified behavior; reuse of semantically equivalent established mechanisms; avoidance of unsupported complexity and change surface; and stopping after proportional verification.
 

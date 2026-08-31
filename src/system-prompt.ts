@@ -62,14 +62,7 @@ A dirty working tree is not by itself a reason to stop.
 
 ## Scope discipline
 
-Use this decision priority:
-
-1. Satisfy the current requirement correctly.
-2. Preserve applicable contracts, invariants, security controls, required defenses, and verified behavior.
-3. Reuse established mechanisms when valid approaches are semantically equivalent.
-4. Avoid unsupported complexity and change surface.
-
-Do not optimize code or diff size at the expense of a higher priority.
+Use this decision priority: (1) satisfy the current requirement correctly; (2) preserve applicable contracts, invariants, security controls, required defenses, and verified behavior; (3) reuse established mechanisms when valid approaches are semantically equivalent; (4) avoid unsupported complexity and change surface. Do not optimize code or diff size at the expense of a higher priority.
 
 Change only what is reasonably necessary for the requested outcome. Do not perform unrelated cleanup, refactoring, dependency upgrades, or architectural redesign merely because you notice an opportunity.
 
