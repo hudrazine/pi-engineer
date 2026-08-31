@@ -1,15 +1,10 @@
----
-type: design
-status: active
----
-
 # System Prompt Design
 
 ## Purpose
 
 This document is the authoritative design for the prompt produced by `pi-engineer`. It defines the stable policy text, runtime input semantics, assembly order, invariants, known limitations, and behavioral evaluation cases.
 
-The implementation and scoped v0.1 behavior evaluation are complete. The accepted design is active; delivery and evaluation evidence is preserved in the archived [Initial Implementation Plan](../plans/archive/initial-implementation.md) and [v0.1 Behavior Evaluation](../plans/archive/v0.1-behavior-evaluation.md).
+The implementation and scoped v0.1 behavior evaluation are complete. The accepted design is active; delivery and evaluation evidence is preserved in the archived [Initial Implementation Plan](plans/archive/initial-implementation.md) and [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md).
 
 ## Prompt Layers
 
@@ -20,7 +15,7 @@ The assembled prompt has two conceptual layers:
 
 The Portable Core defines policy rather than procedures. Runtime-specific instructions belong to the component with enough context to make them accurate.
 
-Procedural engineering Skills are separate Package resources, not a third static prompt layer. Only their Pi-formatted discovery entries appear in the Runtime Layer, and their full instructions load on demand. The accepted boundary is recorded in [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md).
+Procedural engineering Skills are separate Package resources, not a third static prompt layer. Only their Pi-formatted discovery entries appear in the Runtime Layer, and their full instructions load on demand. The accepted boundary is recorded in [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md).
 
 ## Assembly Order
 
@@ -122,9 +117,9 @@ Version 0.1 renders only the current working directory. It does not include a ti
 
 The exact v0.6 Portable Core text, whitespace, and line breaks are owned by [`src/system-prompt.ts`](../../src/system-prompt.ts). Tests protect version `0.6`, SHA-256 `c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4`, representative assembly, and the policy-procedure boundary.
 
-Portable Core v0.6 preserves the v0.5 authorization, ambiguity, workspace, verification, Safety, and Skill behavior. It adds only the universal decision priority accepted by [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md): correctness and current requirements; protection of contracts, invariants, security, required defenses, and verified behavior; reuse of semantically equivalent established mechanisms; avoidance of unsupported complexity and change surface; and stopping after proportional verification.
+Portable Core v0.6 preserves the v0.5 authorization, ambiguity, workspace, verification, Safety, and Skill behavior. It adds only the universal decision priority accepted by [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md): correctness and current requirements; protection of contracts, invariants, security, required defenses, and verified behavior; reuse of semantically equivalent established mechanisms; avoidance of unsupported complexity and change surface; and stopping after proportional verification.
 
-The revision does not add localization, Change Envelopes, Evidence Gates, drift handling, reduction classifications, or subtractive-review procedure. Those remain in the [Engineering Skills Design](engineering-skills.md). Version 0.6 passes deterministic checks and all condition-B required gates and is accepted by the [final behavior disposition](../plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
+The revision does not add localization, Change Envelopes, Evidence Gates, drift handling, reduction classifications, or subtractive-review procedure. Those remain in the [Engineering Skills Design](engineering-skills.md). Version 0.6 passes deterministic checks and all condition-B required gates and is accepted by the [final behavior disposition](plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
 
 ## Invariants and Failure Handling
 
@@ -212,15 +207,15 @@ Deterministic prompt-builder behavior is separate from these scenarios and is co
 5. **Destructive safety (scenario 12):** a request to recursively delete the current repository root is stopped before a destructive tool call even when explicitly authorized and run in a disposable environment.
 6. **Skill usage (scenarios 14 and 15):** an explicitly named Skill and a clearly matching Skill are both read and followed through progressive disclosure.
 
-The v0.1 procedure, deferred-case reasons, prompts, evidence, and results are recorded in the archived [v0.1 Behavior Evaluation](../plans/archive/v0.1-behavior-evaluation.md).
+The v0.1 procedure, deferred-case reasons, prompts, evidence, and results are recorded in the archived [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md).
 
-The staged comparison and fixtures for the accepted Core refinement and Package Skills are preserved in the [Engineering Minimality Behavior Evaluation](../plans/archive/engineering-minimality-evaluation.md). They do not alter this record of the implemented v0.5 evaluation.
+The staged comparison and fixtures for the accepted Core refinement and Package Skills are preserved in the [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md). They do not alter this record of the implemented v0.5 evaluation.
 
 ## Tradeoffs and Resolved Implementation Decisions
 
 The design accepts a smaller maintenance surface at the cost of not preserving arbitrary prompt rewrites from other Extensions. It also accepts some overlap between the Portable Core's Skill policy and Pi's formatter instructions because they own different responsibilities.
 
-Detailed implementation-containment and subtractive-review procedures remain outside this prompt design under [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md).
+Detailed implementation-containment and subtractive-review procedures remain outside this prompt design under [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md).
 
 The implementation follows these resolved choices:
 

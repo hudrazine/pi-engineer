@@ -1,8 +1,3 @@
----
-type: development
-status: active
----
-
 # Development Setup
 
 ## Preconditions

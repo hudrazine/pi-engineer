@@ -1,8 +1,3 @@
----
-type: plan
-status: archived
----
-
 # Initial Implementation Plan
 
 ## Goal

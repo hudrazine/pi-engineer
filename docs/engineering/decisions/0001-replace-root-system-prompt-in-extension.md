@@ -1,5 +1,4 @@
 ---
-type: adr
 status: accepted
 ---
 

@@ -1,15 +1,10 @@
----
-type: design
-status: active
----
-
 # Engineering Skills Design
 
 ## Purpose And Implementation Status
 
-This document is the authoritative behavioral design for the two generic engineering Skills accepted by [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md). It defines their task classes, boundaries, evidence, interaction, failure handling, and evaluation contract.
+This document is the authoritative behavioral design for the two generic engineering Skills accepted by [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md). It defines their task classes, boundaries, evidence, interaction, failure handling, and evaluation contract.
 
-The Package implements and publishes both accepted Skills through its Pi and npm manifests. Deterministic tests verify native Skill loading, required behavioral boundaries, packaged contents, isolated local-Package discovery under Pi 0.84.2, `Project > User > Package` replacement, and preservation of Pi's resolved result at prompt assembly. Staged conditions C through E passed every behavioral required gate. The final disposition accepts the Skills without further changes and records the remaining non-blocking selection and cooperation limitations in the [Engineering Minimality Behavior Evaluation](../plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
+The Package implements and publishes both accepted Skills through its Pi and npm manifests. Deterministic tests verify native Skill loading, required behavioral boundaries, packaged contents, isolated local-Package discovery under Pi 0.84.2, `Project > User > Package` replacement, and preservation of Pi's resolved result at prompt assembly. Staged conditions C through E passed every behavioral required gate. The final disposition accepts the Skills without further changes and records the remaining non-blocking selection and cooperation limitations in the [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
 
 ## Responsibility Model
 
@@ -237,7 +232,7 @@ Behavior evaluation must distinguish:
 
 Correctness, contract preservation, required defenses, authorization, bounded scope, and proportional verification are mandatory gates. Reuse, fewer unsupported concepts, fewer unrelated hunks, supported deletion, and timely stopping are improvement outcomes. LOC and changed-file counts remain secondary diagnostics.
 
-The completed [Engineering Minimality Behavior Evaluation](../plans/archive/engineering-minimality-evaluation.md) preserves the concrete fixtures, comparison conditions, sampling, evidence capture, and applied release-blocking criteria.
+The completed [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md) preserves the concrete fixtures, comparison conditions, sampling, evidence capture, and applied release-blocking criteria.
 
 ## Invariants And Failure Handling
 

@@ -1,8 +1,3 @@
----
-type: plan
-status: archived
----
-
 # Engineering Minimality Behavior Evaluation
 
 ## Goal
@@ -32,7 +27,7 @@ Use OpenRouter for every condition. Reconfirm the effective model and thinking l
 
 The required Pi version is `0.84.2`. Invoke `pi --version` at the start of every batch and require the measured version to match exactly before authentication or model preflight. Do not hardcode or infer the installed version.
 
-Pi's built-in DeepSeek metadata does not expose `max`, so the isolated agent directory loads the tracked [evaluation model override](../../../evaluation/config/models.json). The file contains only the verified DeepSeek context, thinking-level, and OpenRouter routing metadata and no credential or unrelated user customization. Without it, Pi resolves requested `max` to `xhigh`; with it, RPC `get_state` must report `max`, the `258400` context window, the approved FP8 provider order, and disabled routing fallbacks.
+Pi's built-in DeepSeek metadata does not expose `max`, so the isolated agent directory loads the tracked [evaluation model override](../../../../evaluation/config/models.json). The file contains only the verified DeepSeek context, thinking-level, and OpenRouter routing metadata and no credential or unrelated user customization. Without it, Pi resolves requested `max` to `xhigh`; with it, RPC `get_state` must report `max`, the `258400` context window, the approved FP8 provider order, and disabled routing fallbacks.
 
 Use the corresponding non-interactive command prefix and add the isolation and Skill flags defined below:
 

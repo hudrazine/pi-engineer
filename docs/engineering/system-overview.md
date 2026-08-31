@@ -1,15 +1,10 @@
----
-type: architecture
-status: active
----
-
 # System Overview
 
 ## Current State
 
 The repository is a TypeScript Pi Package. Its manifest points Pi at `src/index.ts`, which registers the Extension lifecycle and status command. `src/system-prompt.ts` owns the Portable Core and deterministic Runtime Layer assembly.
 
-The package contains the accepted `bounded-implementation` and `subtractive-code-review` Skills under its published `skills` resource. Their deterministic contracts, isolated Pi 0.84.2 Package discovery, precedence, and staged behavior evaluation pass the required gates. Known non-blocking behavior limitations are recorded in the [Engineering Minimality Behavior Evaluation](../plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
+The package contains the accepted `bounded-implementation` and `subtractive-code-review` Skills under its published `skills` resource. Their deterministic contracts, isolated Pi 0.84.2 Package discovery, precedence, and staged behavior evaluation pass the required gates. Known non-blocking behavior limitations are recorded in the [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
 
 ## Purpose and Boundaries
 
@@ -31,7 +26,7 @@ The Extension also registers `/pi-engineer status`. The command reports whether 
 
 The Portable Core is stable behavioral text. It has no knowledge of active tools, paths, project files, Skills, model identity, timestamps, or Extension ordering.
 
-Its accepted content is owned by the [System Prompt Design](../design/system-prompt.md#portable-core-v06).
+Its accepted content is owned by the [System Prompt Design](system-prompt.md#portable-core-v06).
 
 ### Runtime Layer
 
@@ -45,7 +40,7 @@ The assembler joins non-empty static and dynamic sections in the accepted order.
 
 The Package exposes `bounded-implementation` and `subtractive-code-review` through Pi's normal Skill resource mechanism. The Skills remain outside the Portable Core, load through progressive disclosure, complete independently, and may cooperate only through a semantic task-state handoff.
 
-Their accepted behavioral contract is owned by the [Engineering Skills Design](../design/engineering-skills.md). Pi continues to own discovery and `Project > User > Package` precedence.
+Their accepted behavioral contract is owned by the [Engineering Skills Design](engineering-skills.md). Pi continues to own discovery and `Project > User > Package` precedence.
 
 ## Interactions and Data Flow
 
@@ -103,7 +98,7 @@ The implementation may rely on these public Pi capabilities:
 
 The structured inputs include `customPrompt`, `selectedTools`, `toolSnippets`, `promptGuidelines`, `appendSystemPrompt`, `cwd`, `contextFiles`, and `skills` in the currently installed Pi version.
 
-Pi provides these public APIs at runtime, and the core package is declared as a wildcard peer following Pi Package guidance. Release verification exercises the Pi version resolved from the declared development dependency; the [Product Context](../product/product-context.md#product-constraints) defines the compatibility policy.
+Pi provides these public APIs at runtime, and the core package is declared as a wildcard peer following Pi Package guidance. Release verification exercises the Pi version resolved from the declared development dependency; the [Product Context](product-context.md#product-constraints) defines the compatibility policy.
 
 ## System Constraints
 
@@ -120,13 +115,13 @@ Pi provides these public APIs at runtime, and the core package is declared as a 
 
 ## Decisions
 
-- [ADR-0001: Replace the Root System Prompt in an Extension](../decisions/0001-replace-root-system-prompt-in-extension.md)
-- [ADR-0002: Separate Portable Policy from Runtime Context](../decisions/0002-separate-portable-policy-from-runtime-context.md)
-- [ADR-0003: Defer to Explicit Custom System Prompts](../decisions/0003-defer-to-explicit-custom-system-prompts.md)
-- [ADR-0004: Separate Engineering Policy from Procedural Skills](../decisions/0004-separate-engineering-policy-from-procedural-skills.md)
+- [ADR-0001: Replace the Root System Prompt in an Extension](decisions/0001-replace-root-system-prompt-in-extension.md)
+- [ADR-0002: Separate Portable Policy from Runtime Context](decisions/0002-separate-portable-policy-from-runtime-context.md)
+- [ADR-0003: Defer to Explicit Custom System Prompts](decisions/0003-defer-to-explicit-custom-system-prompts.md)
+- [ADR-0004: Separate Engineering Policy from Procedural Skills](decisions/0004-separate-engineering-policy-from-procedural-skills.md)
 
 ## Implementation Status
 
-Automated prompt-builder and Extension-registration tests verify the implemented prompt boundaries. The completed [Initial Implementation Plan](../plans/archive/initial-implementation.md) and [v0.1 Behavior Evaluation](../plans/archive/v0.1-behavior-evaluation.md) preserve the baseline delivery and evaluation evidence.
+Automated prompt-builder and Extension-registration tests verify the implemented prompt boundaries. The completed [Initial Implementation Plan](plans/archive/initial-implementation.md) and [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md) preserve the baseline delivery and evaluation evidence.
 
-Portable Core v0.6 and both Package Skills pass deterministic and staged evaluation. The Package Skills are discoverable from an isolated Pi 0.84.2 Package installation and replaceable through `Project > User > Package` precedence. The final behavior disposition accepts the current implementation, and the completed [Engineering Minimality Policy and Skills Plan](../plans/archive/engineering-minimality-policy-and-skills.md#release-readiness-result) records release readiness.
+Portable Core v0.6 and both Package Skills pass deterministic and staged evaluation. The Package Skills are discoverable from an isolated Pi 0.84.2 Package installation and replaceable through `Project > User > Package` precedence. The final behavior disposition accepts the current implementation, and the completed [Engineering Minimality Policy and Skills Plan](plans/archive/engineering-minimality-policy-and-skills.md#release-readiness-result) records release readiness.
