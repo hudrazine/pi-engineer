@@ -1,0 +1,25 @@
+{
+  "providers": {
+    "openrouter": {
+      "modelOverrides": {
+        "deepseek/deepseek-v4-flash-0731": {
+          "contextWindow": 258400,
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "compat": {
+            "openRouterRouting": {
+              "order": ["novita/fp8", "baseten/fp8", "deepinfra/fp8"],
+              "allow_fallbacks": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

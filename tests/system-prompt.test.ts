@@ -23,8 +23,8 @@ const skill: Skill = {
 };
 
 const acceptedPortableCore = {
-  version: "0.5",
-  sha256: "7b99d53dd6dd2ab2db0aa69006e592b80f1086a89056398cb92f4ab6d89ce001",
+  version: "0.6",
+  sha256: "fbe65beacd7f3ac4a22bba085ffcd5eeb391c5b9a25ead82ca83b29500a0dfc4",
 } as const;
 
 const shellDiscoveryGuideline =
@@ -43,6 +43,34 @@ test("clarifies unresolved consequential choices without suppressing local auton
   expect(PORTABLE_CORE).toContain(
     "An explicit request to implement does not resolve a consequential choice that the request explicitly leaves undecided. Stop before editing and request that decision; continue to choose minor, local, reversible details yourself.",
   );
+});
+
+test("defines the accepted engineering priority and stopping baseline", () => {
+  expect(PORTABLE_CORE).toContain(
+    `Use this decision priority:
+
+1. Satisfy the current requirement correctly.
+2. Preserve applicable contracts, invariants, security controls, required defenses, and verified behavior.
+3. Reuse established mechanisms when valid approaches are semantically equivalent.
+4. Avoid unsupported complexity and change surface.
+
+Do not optimize code or diff size at the expense of a higher priority.`,
+  );
+  expect(PORTABLE_CORE).toContain(
+    "Once the requested outcome is implemented and verified in proportion to its scope and risk, stop rather than continuing unrelated improvement.",
+  );
+});
+
+test("keeps implementation and subtractive-review procedures outside the Portable Core", () => {
+  for (const proceduralTerm of [
+    "Change Envelope",
+    "Evidence Gate",
+    "DELETE candidate",
+    "SIMPLIFY candidate",
+    "drift response",
+  ]) {
+    expect(PORTABLE_CORE).not.toContain(proceduralTerm);
+  }
 });
 
 test("defines protected roots, their non-overridable boundary, and safe alternatives", () => {

@@ -1,0 +1,11 @@
+{
+  "name": "public-hook-fixture",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./hooks": "./src/hooks.js"
+  },
+  "scripts": {
+    "test": "node --test test/*.case.js"
+  }
+}

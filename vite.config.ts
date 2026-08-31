@@ -8,6 +8,7 @@ export default defineConfig({
   },
 
   lint: {
+    ignorePatterns: ["evaluation/fixtures/**"],
     options: { typeAware: true, typeCheck: true },
     plugins: ["eslint", "typescript", "unicorn", "oxc"],
     jsPlugins: [{ name: "vite-plus", specifier: "vite-plus/oxlint-plugin" }],

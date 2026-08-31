@@ -1,0 +1,8 @@
+{
+  "name": "greenfield-mvp-fixture",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.case.js"
+  }
+}

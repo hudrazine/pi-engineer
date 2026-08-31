@@ -20,12 +20,14 @@ The assembled prompt has two conceptual layers:
 
 The Portable Core defines policy rather than procedures. Runtime-specific instructions belong to the component with enough context to make them accurate.
 
+Procedural engineering Skills are separate Package resources, not a third static prompt layer. Only their Pi-formatted discovery entries appear in the Runtime Layer, and their full instructions load on demand. The accepted boundary is recorded in [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md).
+
 ## Assembly Order
 
 Non-empty sections are assembled in this order:
 
 ```text
-Portable Core v0.5
+Portable Core v0.6
 → Available tools
 → Tool guidelines
 → Pi documentation
@@ -110,17 +112,19 @@ The Portable Core defines when and how Skills should be used. The Runtime Layer 
 
 The catalog is emitted only when `read` is active and at least one visible Skill remains after Pi's formatter rules. `pi-engineer` does not introduce a competing discovery format.
 
+The accepted Package Skills use this existing path without changing assembly semantics. Their behavior is owned by the [Engineering Skills Design](engineering-skills.md).
+
 ## Environment
 
 Version 0.1 renders only the current working directory. It does not include a timestamp, session identifier, random value, model name, or other volatile fact.
 
-## Portable Core v0.5
+## Portable Core v0.6
 
-The exact v0.5 Portable Core text, whitespace, and line breaks are owned by [`src/system-prompt.ts`](../../src/system-prompt.ts). Tests protect its bytes and representative assembly; this document owns the section purpose, behavioral invariants, Runtime Layer boundaries, and evaluation scenarios.
+The exact v0.6 Portable Core text, whitespace, and line breaks are owned by [`src/system-prompt.ts`](../../src/system-prompt.ts). Tests protect version `0.6`, SHA-256 `fbe65beacd7f3ac4a22bba085ffcd5eeb391c5b9a25ead82ca83b29500a0dfc4`, representative assembly, and the policy-procedure boundary.
 
-Portable Core v0.5 retains the v0.4 protected-root Safety boundary. It also clarifies that an explicit request to implement does not resolve a consequential choice the request explicitly leaves undecided. The agent must stop before editing and request that decision while continuing to choose minor, local, reversible implementation details autonomously.
+Portable Core v0.6 preserves the v0.5 authorization, ambiguity, workspace, verification, Safety, and Skill behavior. It adds only the universal decision priority accepted by [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md): correctness and current requirements; protection of contracts, invariants, security, required defenses, and verified behavior; reuse of semantically equivalent established mechanisms; avoidance of unsupported complexity and change surface; and stopping after proportional verification.
 
-Portable Core v0.5 is the accepted release candidate and requires no further model-specific adjustment. The remaining DeepSeek Ambiguity failure and GPT Luna recoverability-reporting `partial` are accepted non-blocking model limitations recorded in the archived [v0.1 Behavior Evaluation](../plans/archive/v0.1-behavior-evaluation.md), not evidence that the common policy needs another model-specific rule. The Luna result concerns post-action reporting accuracy; it does not reopen the separately passed protected-root and deletion-scope Safety boundaries.
+The revision does not add localization, Change Envelopes, Evidence Gates, drift handling, reduction classifications, or subtractive-review procedure. Those remain in the [Engineering Skills Design](engineering-skills.md). Version 0.6 passes deterministic checks and all condition-B required gates and is accepted by the [final behavior disposition](../plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
 
 ## Invariants and Failure Handling
 
@@ -210,9 +214,13 @@ Deterministic prompt-builder behavior is separate from these scenarios and is co
 
 The v0.1 procedure, deferred-case reasons, prompts, evidence, and results are recorded in the archived [v0.1 Behavior Evaluation](../plans/archive/v0.1-behavior-evaluation.md).
 
+The staged comparison and fixtures for the accepted Core refinement and Package Skills are preserved in the [Engineering Minimality Behavior Evaluation](../plans/archive/engineering-minimality-evaluation.md). They do not alter this record of the implemented v0.5 evaluation.
+
 ## Tradeoffs and Resolved Implementation Decisions
 
 The design accepts a smaller maintenance surface at the cost of not preserving arbitrary prompt rewrites from other Extensions. It also accepts some overlap between the Portable Core's Skill policy and Pi's formatter instructions because they own different responsibilities.
+
+Detailed implementation-containment and subtractive-review procedures remain outside this prompt design under [ADR-0004](../decisions/0004-separate-engineering-policy-from-procedural-skills.md).
 
 The implementation follows these resolved choices:
 
