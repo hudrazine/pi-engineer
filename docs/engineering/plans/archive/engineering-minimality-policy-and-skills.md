@@ -1,8 +1,3 @@
----
-type: plan
-status: archived
----
-
 # Engineering Minimality Policy and Skills Plan
 
 ## Goal
@@ -23,7 +18,7 @@ Implement the accepted Portable Core refinement and the `bounded-implementation`
 - Condition E completed all 12 combined-Skill runs with every behavioral required gate passing and 10 of 12 Skill-selection assertions passing. DeepSeek under-selected `bounded-implementation` in BI-01 and BI-02; sampling classified BI-01 as stable and BI-02 as unstable. No run used the optional subtractive handoff; non-use was appropriate in ten runs and missed a potentially useful review in the two higher-volume BI-05 results. The evaluation plan owns the detailed comparisons and the remaining selection limitations.
 - The final behavior disposition accepts Portable Core v0.6 and both Skills without further changes. DeepSeek positive-case under-selection is an accepted model-specific limitation; BI-06 over-selection and missed optional handoffs are non-blocking improvement opportunities. No release-blocking common behavior defect remains.
 
-The accepted architecture and behavioral contracts are defined by [ADR-0004](../../decisions/0004-separate-engineering-policy-from-procedural-skills.md), the [System Prompt Design](../../design/system-prompt.md), and the [Engineering Skills Design](../../design/engineering-skills.md). Concrete fixtures, prompts, condition allocation, assertions, and result records are preserved by the companion [Engineering Minimality Behavior Evaluation](engineering-minimality-evaluation.md).
+The accepted architecture and behavioral contracts are defined by [ADR-0004](../../decisions/0004-separate-engineering-policy-from-procedural-skills.md), the [System Prompt Design](../../system-prompt.md), and the [Engineering Skills Design](../../engineering-skills.md). Concrete fixtures, prompts, condition allocation, assertions, and result records are preserved by the companion [Engineering Minimality Behavior Evaluation](engineering-minimality-evaluation.md).
 
 ## Constraints And Non-goals
 
@@ -118,4 +113,4 @@ The implementation is authorized to enter the Changesets release workflow. `vp r
 
 An isolated registry-backed smoke installed the candidate artifact through Pi 0.84.2 as `npm:@hudrazine/pi-engineer@0.1.0`. The installed package contained the same seven files, exposed `/pi-engineer`, `/skill:bounded-implementation`, and `/skill:subtractive-code-review`, and reported `pi-engineer active (package 0.1.0, Portable Core 0.6)`. The temporary registry, agent directory, workspace, package cache, and installed artifact were removed after verification.
 
-Portable Core source, both Skills, evaluation fixtures, and conditions A through E evidence retained their pre-readiness hashes. The final behavior disposition found no release-blocking common defect. Publication still follows the separate approval-gated [npm Release Procedure](../../development/release.md); the generated version pull request, workflow verification, `npm-production` approval, and post-publication registry/provenance checks are operational release steps rather than open implementation work in this plan.
+Portable Core source, both Skills, evaluation fixtures, and conditions A through E evidence retained their pre-readiness hashes. The final behavior disposition found no release-blocking common defect. Publication still follows the separate approval-gated [npm Release Procedure](../../release.md); the generated version pull request, workflow verification, `npm-production` approval, and post-publication registry/provenance checks are operational release steps rather than open implementation work in this plan.

@@ -1,8 +1,3 @@
----
-type: product
-status: active
----
-
 # Product Context
 
 ## Problem
@@ -69,7 +64,7 @@ The user's workspace and external resources remain user-owned. The agent must no
 
 ## Required Behavior
 
-The accepted behavior is defined by the [System Prompt Design](../design/system-prompt.md) and [Engineering Skills Design](../design/engineering-skills.md). At minimum, the package must:
+The accepted behavior is defined by the [System Prompt Design](system-prompt.md) and [Engineering Skills Design](engineering-skills.md). At minimum, the package must:
 
 - provide the accepted Portable Core;
 - assemble the runtime sections in the accepted order;

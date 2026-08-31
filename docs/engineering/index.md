@@ -1,6 +1,6 @@
 # Engineering Documentation
 
-This documentation records the product intent, accepted prompt design, architecture decisions, development procedures, and completed delivery history for `pi-engineer`.
+This index is the entry point for `pi-engineer`'s maintainer-facing engineering documentation. The Product, Architecture, Design, Terminology, and Development sections identify current authorities. Decisions preserve accepted rationale, while Archived Plans are historical and do not describe active work.
 
 ## Terminology
 
@@ -8,16 +8,16 @@ This documentation records the product intent, accepted prompt design, architect
 
 ## Product
 
-- [Product Context](product/product-context.md)
+- [Product Context](product-context.md)
 
 ## Architecture
 
-- [System Overview](architecture/system-overview.md)
+- [System Overview](system-overview.md)
 
 ## Design
 
-- [System Prompt Design](design/system-prompt.md)
-- [Engineering Skills Design](design/engineering-skills.md)
+- [System Prompt Design](system-prompt.md)
+- [Engineering Skills Design](engineering-skills.md)
 
 ## Decisions
 
@@ -36,5 +36,5 @@ This documentation records the product intent, accepted prompt design, architect
 
 ## Development
 
-- [Development Setup](development/setup.md)
-- [Release Procedure](development/release.md)
+- [Development Setup](setup.md)
+- [Release Procedure](release.md)

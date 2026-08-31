@@ -85,7 +85,7 @@ test("publishes the two Package Skills through Pi and npm package metadata", () 
       "skills/subtractive-code-review/SKILL.md",
     ]),
   );
-  expect(files?.some((path) => /^(?:tests|evaluation|\.engineering)\//.test(path))).toBe(false);
+  expect(files?.some((path) => /^(?:tests|evaluation|docs\/engineering)\//.test(path))).toBe(false);
 });
 
 test("loads exactly the standalone Package Skills without validation diagnostics", () => {

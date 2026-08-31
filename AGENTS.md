@@ -6,7 +6,7 @@ Guidance for AI coding agents working in this repository.
 
 `pi-engineer` is a Pi Package that replaces Pi's default system prompt with a portable software-engineering agent policy while preserving Pi's runtime-provided tools, project context, Skills, and additive instructions.
 
-Before making product, architecture, or prompt-design decisions, read `.engineering/index.md` and follow its links to the relevant authoritative documents.
+Before making product, architecture, or prompt-design decisions, read `docs/engineering/index.md` and follow its links to the relevant authoritative documents.
 
 ## Commands
 
