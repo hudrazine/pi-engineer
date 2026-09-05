@@ -1,6 +1,6 @@
 # Engineering Documentation
 
-This index is the entry point for `pi-engineer`'s maintainer-facing engineering documentation. The Product, Architecture, Design, Terminology, and Development sections identify current authorities. Decisions preserve accepted rationale, while Archived Plans are historical and do not describe active work.
+This index is the entry point for `pi-engineer`'s maintainer-facing engineering documentation. Product, Architecture, Design, Terminology, and Development identify current authorities. Decisions preserve the small set of choices needed to understand the present design.
 
 ## Terminology
 
@@ -18,6 +18,11 @@ This index is the entry point for `pi-engineer`'s maintainer-facing engineering 
 
 - [System Prompt Design](system-prompt.md)
 - [Engineering Skills Design](engineering-skills.md)
+- [System Prompt Evaluation](evaluation.md)
+
+## Evaluation Records
+
+- [System Prompt Adoption Evaluation — 2026-09-05](evaluations/2026-09-05-system-prompt-adoption.md)
 
 ## Decisions
 
@@ -25,14 +30,12 @@ This index is the entry point for `pi-engineer`'s maintainer-facing engineering 
 - [ADR-0002: Separate Portable Policy from Runtime Context](decisions/0002-separate-portable-policy-from-runtime-context.md)
 - [ADR-0003: Defer to Explicit Custom System Prompts](decisions/0003-defer-to-explicit-custom-system-prompts.md)
 - [ADR-0004: Separate Engineering Policy from Procedural Skills](decisions/0004-separate-engineering-policy-from-procedural-skills.md)
+- [ADR-0005: Adopt a Minimal Seven-Clause Core and Runtime Adapter](decisions/0005-adopt-minimal-engineering-policy-and-runtime-adapter.md)
+- [ADR-0006: Evaluate the Completed Prompt Through the Real Extension](decisions/0006-evaluate-completed-prompt-through-real-extension.md)
 
 ## Archived Plans
 
 - [Changesets Release Automation](plans/archive/changesets-release-automation.md)
-- [Engineering Minimality Policy and Skills](plans/archive/engineering-minimality-policy-and-skills.md)
-- [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md)
-- [Initial Implementation Plan](plans/archive/initial-implementation.md)
-- [v0.1 Behavior Evaluation](plans/archive/v0.1-behavior-evaluation.md)
 
 ## Development
 

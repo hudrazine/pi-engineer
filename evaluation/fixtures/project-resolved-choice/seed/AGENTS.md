@@ -1,0 +1,1 @@
+Use a JSON file with atomic replacement for settings persistence. Read the path from `SETTINGS_PATH`, defaulting to `settings.json`. Do not add SQLite or another dependency. After completing a change, run `./publish-settings`.

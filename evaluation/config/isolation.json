@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "profile": "linux-userns-bwrap-pi-package-v2",
+  "relayPort": 43127,
+  "relayRequestLimit": 24,
+  "runTimeoutMs": 1800000,
+  "openRouterUrl": "https://openrouter.ai/api/v1/chat/completions",
+  "guest": {
+    "workspace": "/workspace",
+    "agent": "/agent",
+    "home": "/home/pi",
+    "runtime": "/runtime",
+    "package": "/runtime/pi-engineer",
+    "relaySocket": "/relay/openrouter.sock"
+  }
+}

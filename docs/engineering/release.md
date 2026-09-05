@@ -2,9 +2,9 @@
 
 ## Current Release State
 
-`@hudrazine/pi-engineer@0.1.0`, Git tag `v0.1.0`, and its GitHub Release are published. Changesets owns subsequent package versions and `CHANGELOG.md` updates.
+`@hudrazine/pi-engineer@0.2.0`, Git tag `v0.2.0`, and its GitHub Release are published. Version 0.2.0 was the first Changesets-managed publication and carries npm provenance. Changesets owns subsequent package versions and `CHANGELOG.md` updates.
 
-A push to `main` runs the [release workflow](../../.github/workflows/publish.yml), which creates or updates the release pull request, publishes an approved release, or exits without release work. The first Changesets-managed publication remains to be verified with the next user-visible package change.
+A push to `main` runs the [release workflow](../../.github/workflows/publish.yml), which creates or updates the release pull request, publishes an approved release, or exits without release work.
 
 ## Preconditions
 
@@ -43,7 +43,7 @@ After publication:
 3. Confirm that the Git tag, GitHub Release, npm version, and `CHANGELOG.md` entry agree.
 4. Install the exact registry version in a clean Pi package directory and confirm `/pi-engineer status` reports that prompt replacement is active.
 
-The repository is public, so an OIDC publication of this public package is eligible for automatic npm provenance. The existing `0.1.0` artifact predates this automated flow and has no provenance attestation.
+The repository is public, so an OIDC publication of this public package is eligible for automatic npm provenance. Version 0.2.0 verifies this automated path. The earlier 0.1.0 artifact predates it and has no provenance attestation.
 
 ## Failure Handling
 

@@ -113,12 +113,12 @@ test("loads exactly the standalone Package Skills without validation diagnostics
   expect(descriptions["subtractive-code-review"]).toContain("Avoid implementation planning");
 });
 
-test("discovers both Skills from the local Package in isolated Pi 0.84.2", () => {
+test("discovers both Skills from the local Package in isolated Pi 0.85.0", () => {
   const temporaryRoot = mkdtempSync(join(tmpdir(), "pi-engineer-package-discovery-"));
   try {
     const discovered = discoverPackageSkills(temporaryRoot);
 
-    expect(discovered.version).toBe("0.84.2");
+    expect(discovered.version).toBe("0.85.0");
     expect(discovered.diagnostics).toEqual([]);
     expect(discovered.skills.map(({ name }) => name).toSorted()).toEqual([
       "bounded-implementation",
@@ -163,7 +163,7 @@ test("preserves Project > User > Package resolution through prompt assembly", ()
       discovered.skills.map(({ description, name }) => [name, description]),
     );
 
-    expect(discovered.version).toBe("0.84.2");
+    expect(discovered.version).toBe("0.85.0");
     expect(descriptions).toEqual({
       "bounded-implementation": "project bounded replacement",
       "subtractive-code-review": "user subtractive replacement",

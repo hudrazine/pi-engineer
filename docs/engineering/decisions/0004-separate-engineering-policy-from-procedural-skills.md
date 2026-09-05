@@ -6,6 +6,8 @@ status: accepted
 
 > Terminology note: Current documentation calls the stable policy the Engineering Policy. This record retains its original Portable Core name.
 
+> Current status: [ADR-0005](0005-adopt-minimal-engineering-policy-and-runtime-adapter.md) supersedes this record's exact list of root-policy responsibilities. [ADR-0006](0006-evaluate-completed-prompt-through-real-extension.md) supersedes its staged Core and Skill isolation requirements. This record remains authoritative for the separation and design of the two procedural Skills.
+
 ## Context
 
 The Portable Core already defines cross-project scope discipline, preservation, autonomy, and proportional verification. Those persistent principles are necessary, but instructions such as "keep changes minimal" do not by themselves give an agent a reliable method for localizing a change, justifying new structure, detecting implementation drift, or performing an independent subtractive review.

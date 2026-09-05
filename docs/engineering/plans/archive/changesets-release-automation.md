@@ -25,4 +25,4 @@ One `main`-triggered `publish.yml` workflow now selects no-op, version, or publi
 
 ## Outcome
 
-The repository rollout completed through [PR #5](https://github.com/hudrazine/pi-engineer/pull/5). The first `main` run selected no release work and skipped the version, verification, and publish jobs as intended. The first Changesets-managed publication remains deliberately deferred until the next user-visible package change and is governed by the current [release procedure](../../release.md).
+The repository rollout completed through [PR #5](https://github.com/hudrazine/pi-engineer/pull/5). The first `main` run selected no release work and skipped the version, verification, and publish jobs as intended. At archival time, the first Changesets-managed publication was deliberately deferred until the next user-visible package change. Current publication state is owned by the [release procedure](../../release.md).
