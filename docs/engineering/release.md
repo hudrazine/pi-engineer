@@ -29,9 +29,9 @@ Follow the policy in [`.changeset/README.md`](../../.changeset/README.md).
 
 1. After changesets reach `main`, the workflow selects version mode and creates or updates `chore(release): version package`.
 2. Review the version, consumed changesets, and `CHANGELOG.md`. If GitHub displays an approval banner for CI created by `GITHUB_TOKEN`, approve the workflow runs, then merge the release pull request after required checks pass.
-3. The resulting `main` push selects publish mode. The read-only verification job runs `vp run check`, `vp run test`, and `vp pm pack -- --dry-run --json`.
+3. The resulting `main` push selects publish mode. The read-only verification job runs `vp run check`, `vp run test:ci`, and `vp pm pack -- --dry-run --json`. Evaluation Harness tests remain part of the local `vp run test` suite because they require the Linux isolation runtime used for evaluation.
 4. Inspect the completed verification output, then explicitly approve the waiting `npm-production` deployment.
-5. Only the approved publish job has `id-token: write`. It runs `vp run release`; `prepublishOnly` repeats check and test during publication.
+5. Only the approved publish job has `id-token: write`. It runs `vp run release`; `prepublishOnly` repeats the check and CI product tests during publication.
 6. Changesets publishes through npm Trusted Publisher, pushes `v<version>`, and creates the matching GitHub Release from the changelog entry.
 
 ## Verification

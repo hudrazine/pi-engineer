@@ -34,8 +34,9 @@
     "eval": "node evaluation/harness/run.mjs",
     "eval:report": "node evaluation/harness/report.mjs",
     "test": "vp test",
+    "test:ci": "vp test tests/index.test.ts tests/system-prompt.test.ts tests/skills.test.ts",
     "check": "vp check",
-    "prepublishOnly": "vp run check && vp run test"
+    "prepublishOnly": "vp run check && vp run test:ci"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.0",
