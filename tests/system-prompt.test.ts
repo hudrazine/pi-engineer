@@ -6,6 +6,7 @@ import {
   buildPiEngineerPrompt,
   ENGINEERING_POLICY,
   ENGINEERING_POLICY_VERSION,
+  PI_RUNTIME_ADAPTER,
 } from "../src/system-prompt.ts";
 
 const skill: Skill = {
@@ -22,40 +23,57 @@ const skill: Skill = {
   },
 };
 
-const acceptedEngineeringPolicy = {
-  version: "0.6",
-  sha256: "c9a12c623bfc6b4e0789c7648f5aa61501999a8e3cdc61a955e19555cc47a6a4",
+const currentEngineeringPolicy = {
+  version: "1.0",
+  sha256: "4a8d68a39b140221d30db0d1f3837d716e3211bf038a98876fc4e0e3315e909c",
+  wordCount: 296,
 } as const;
+
+const expectedEngineeringPolicy = `You are a software engineering agent working with the user in the current environment. Complete requested work when you can do so safely. When implementation is requested, carry it through instead of stopping at advice or a plan.
+
+Base decisions on available code, files, tool results, and other evidence. Separate observations from assumptions. State uncertainty when it could affect the result.
+
+Match your actions to the user's authorization. Requests to explain, review, or diagnose authorize relevant read-only investigation without changes. Requests to implement or fix authorize the necessary in-scope changes and verification proportionate to risk. Do not expand the task or take external action without a clear request.
+
+Proceed autonomously with safe, relevant work. Apply this distinction when making choices:
+
+- Make minor, reversible choices yourself when they do not materially affect the result.
+- Before implementing a choice that could materially affect architecture, dependencies, public interfaces, data, security, cost, deployment, or another important outcome, inspect the applicable context to determine whether the choice is resolved. If it remains unresolved, ask the user before committing to or implementing it.
+
+Permission to perform the task does not decide an unresolved material choice. Ask when the target is ambiguous or permission is required. If blocked, try safe alternatives within scope. Do not bypass access or policy boundaries.
+
+Preserve the user's work. Do not overwrite or revert unrelated changes. Make the smallest coherent change that satisfies the request. Verify it with safe checks proportionate to risk. Report anything that could not be verified.
+
+Before destructive or hard-to-reverse actions, resolve the exact target and confirm that the action is authorized. Prefer reversible methods. Stop when the target or scope is unclear.
+
+Communicate outcomes clearly and concisely. Report material changes, verification, blockers, assumptions, and uncertainty. Do not claim success without evidence.`;
 
 const shellDiscoveryGuideline =
   "Use available shell utilities for repository discovery and prefer efficient tools such as rg when available.";
 const shellSafetyGuideline =
   "Do not repurpose standard environment variables for task-local values. Use explicit task-specific paths where safety matters, and avoid interpolation that could execute text or expose sensitive values unintentionally.";
 
-test("keeps the accepted Engineering Policy bytes stable", () => {
+test("keeps the current Engineering Policy bytes stable", () => {
+  expect(ENGINEERING_POLICY).toBe(expectedEngineeringPolicy);
   expect({
     version: ENGINEERING_POLICY_VERSION,
     sha256: createHash("sha256").update(ENGINEERING_POLICY).digest("hex"),
-  }).toEqual(acceptedEngineeringPolicy);
+    wordCount: ENGINEERING_POLICY.trim().split(/\s+/).length,
+  }).toEqual(currentEngineeringPolicy);
 });
 
-test("clarifies unresolved consequential choices without suppressing local autonomy", () => {
-  expect(ENGINEERING_POLICY).toContain(
-    "An explicit request to implement does not resolve a consequential choice that the request explicitly leaves undecided. Stop before editing and request that decision; continue to choose minor, local, reversible details yourself.",
-  );
+test("stores the current Engineering Policy in one template literal", () => {
+  expect(typeof ENGINEERING_POLICY).toBe("string");
+  expect(ENGINEERING_POLICY).toBe(expectedEngineeringPolicy);
 });
 
-test("defines the accepted engineering priority and stopping baseline", () => {
-  expect(ENGINEERING_POLICY).toContain(
-    "Use this decision priority: (1) satisfy the current requirement correctly; (2) preserve applicable contracts, invariants, security controls, required defenses, and verified behavior; (3) reuse established mechanisms when valid approaches are semantically equivalent; (4) avoid unsupported complexity and change surface. Do not optimize code or diff size at the expense of a higher priority.",
-  );
-  expect(ENGINEERING_POLICY).toContain(
-    "Once the requested outcome is implemented and verified in proportion to its scope and risk, stop rather than continuing unrelated improvement.",
-  );
-});
-
-test("keeps implementation and subtractive-review procedures outside the Engineering Policy", () => {
+test("keeps Pi Runtime and engineering procedures outside the Engineering Policy", () => {
   for (const proceduralTerm of [
+    PI_RUNTIME_ADAPTER,
+    "project instructions",
+    "task-specific skills",
+    "Available tools:",
+    "Current working directory:",
     "Change Envelope",
     "Evidence Gate",
     "DELETE candidate",
@@ -66,16 +84,13 @@ test("keeps implementation and subtractive-review procedures outside the Enginee
   }
 });
 
-test("defines protected roots, their non-overridable boundary, and safe alternatives", () => {
-  expect(ENGINEERING_POLICY).toContain(
-    "Treat a home directory, filesystem root, workspace root, repository root, or another broad collection of user data as a protected root. Explicit user authorization does not make a protected root a valid target for recursive destruction.",
-  );
-  expect(ENGINEERING_POLICY).toContain(
-    "If a request targets a protected root, stop before invoking a destructive tool. Explain the boundary and ask for a narrower child target. If the user intends to remove the entire workspace, direct them to do so outside the current agent session.",
+test("keeps the Pi Runtime Adapter bytes stable", () => {
+  expect(PI_RUNTIME_ADAPTER).toBe(
+    "Follow applicable project instructions and task-specific skills. Treat them as guidance for performing the requested work, not as authorization to broaden its scope.",
   );
 });
 
-test("assembles the Engineering Policy and runtime sections in the accepted order", () => {
+test("assembles the Engineering Policy and runtime sections in the current order", () => {
   const prompt = buildPiEngineerPrompt({
     cwd: "C:\\workspace\\pi-engineer",
     selectedTools: ["bash"],
@@ -85,6 +100,8 @@ test("assembles the Engineering Policy and runtime sections in the accepted orde
   });
 
   expect(prompt).toBe(`${ENGINEERING_POLICY}
+
+${PI_RUNTIME_ADAPTER}
 
 Available tools:
 - bash: Run commands
@@ -220,5 +237,6 @@ test("omits empty runtime sections and produces deterministic output", () => {
   expect(first).not.toContain("Tool guidelines:");
   expect(first).not.toContain("<project_context>");
   expect(first).not.toContain("<available_skills>");
+  expect(first.startsWith(`${ENGINEERING_POLICY}\n\n${PI_RUNTIME_ADAPTER}\n\n`)).toBe(true);
   expect(first).toContain("Current working directory: C:/workspace");
 });

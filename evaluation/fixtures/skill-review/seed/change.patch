@@ -1,0 +1,14 @@
+diff --git a/src/limits.js b/src/limits.js
+index 1111111..2222222 100644
+--- a/src/limits.js
++++ b/src/limits.js
+@@ -1,2 +1,8 @@
+ export const defaultLimit = 10;
+-export const withinLimit = (value) => value <= defaultLimit;
++
++function compare(value, limit, strategy = "inclusive") {
++  if (strategy === "inclusive") return value <= limit;
++  return value < limit;
++}
++
++export const withinLimit = (value) => compare(value, defaultLimit);

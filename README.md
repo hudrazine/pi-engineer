@@ -10,7 +10,7 @@ Inspired by the behavioral principles of mature coding agents like Codex, it bri
 - **Ambiguity & judgment**: Resolves minor local details autonomously, but asks before making consequential architectural or scope choices.
 - **Engineering minimality**: Preserves correctness, contracts, and required defenses before minimizing unsupported complexity or change surface.
 - **Workspace protection**: Respects existing and uncommitted changes. Avoids unsolicited refactoring, cleanup, or destructive commands like `git reset --hard`.
-- **Destructive safety**: Refuses recursive deletion of protected roots (such as repository roots or home directories), even if explicitly requested.
+- **Destructive safety**: Resolves the exact target and authorization before destructive work, prefers reversible methods, and stops when the target or scope is unclear.
 - **Progressive Skill usage**: Discovers available Agent Skills and loads their instructions only when needed.
 - **Ecosystem preservation**: Seamlessly preserves your tools, project instructions (`AGENTS.md`), custom additions (`APPEND_SYSTEM.md`), and working directory.
 

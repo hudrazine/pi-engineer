@@ -33,4 +33,4 @@ jobs:
         run: vp check
 
       - name: Test
-        run: vp run test
+        run: vp run test:ci

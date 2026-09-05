@@ -21,7 +21,7 @@ The package should give Pi a durable behavioral baseline and reusable generic pr
 - Protect existing files, working-tree changes, project decisions, and external resources as user-owned state.
 - Encourage completion of requested implementation work through proportional verification and clear handoff.
 - Apply reusable safety rules to destructive operations without making routine engineering work needlessly cautious.
-- State a universal priority that preserves correctness, contracts, invariants, security, required defenses, and established mechanisms before minimizing unsupported complexity.
+- Keep correctness and applicable contracts ahead of simplification, while leaving detailed reuse and complexity judgments to procedural Skills.
 - Provide `bounded-implementation` for implementation containment in new and existing software.
 - Provide `subtractive-code-review` for evidence-backed simplification of completed task diffs and bounded existing code areas.
 - Use Pi Skills through progressive disclosure without loading unrelated guidance.
@@ -59,15 +59,15 @@ The user's workspace and external resources remain user-owned. The agent must no
 
 - Pi-provided core packages use wildcard peer ranges following Pi Package guidance. A recent Pi release is recommended; older releases are not tested or guaranteed.
 - The Pi version resolved from the declared development dependency must be verified before release.
-- Behavioral evaluation may be manual, but its result must distinguish passed, partial, failed, and untested scenarios.
-- A model-specific evaluation failure may be accepted as a non-blocking known limitation when the common policy or Skill contract is clear, representative models demonstrate the intended behavior, the failure does not expose an unresolved product-wide safety or correctness boundary, and further tuning would specialize shared guidance for that model.
+- Behavioral evaluation separates Harness or provider `INVALID` results from model-behavior `PASS` or `FAIL` results.
+- A model-specific evaluation failure may be treated as a limitation when the shared policy direction is clear, the other representative models support it, the failure does not expose a product-wide safety or correctness defect, and further tuning would specialize shared guidance for that model.
 
 ## Required Behavior
 
-The accepted behavior is defined by the [System Prompt Design](system-prompt.md) and [Engineering Skills Design](engineering-skills.md). At minimum, the package must:
+Current intended behavior is defined by the [System Prompt Design](system-prompt.md) and [Engineering Skills Design](engineering-skills.md). At minimum, the package must:
 
-- provide the accepted Engineering Policy;
-- assemble the runtime sections in the accepted order;
+- provide the adopted Engineering Policy 1.0;
+- assemble the runtime sections in the defined order;
 - preserve supported Pi runtime inputs without semantic rewriting;
 - defer to an explicit custom system prompt instead of automatically merging two root policies;
 - avoid non-deterministic prompt content;
@@ -97,7 +97,7 @@ The product is successful when:
 - the package loads as a Pi Extension and performs root prompt replacement when eligible;
 - the assembled prompt satisfies the invariants in the system-prompt design;
 - deterministic unit tests cover assembly, omission, ordering, and conflict behavior;
-- the required Policy and Skill behavior scenarios have been evaluated and material failures are either corrected or explicitly accepted and documented as non-blocking known limitations;
+- all required completed-prompt runs are valid, human-reviewed, and interpreted without confusing model failures with infrastructure failures;
 - the Package Skills are discoverable, independently usable, and replaceable by project or user Skills;
 - required correctness, preservation, safety, authorization, and verification gates take priority over reduction metrics;
 - installation, usage, custom-prompt precedence, and compatibility limits are documented for users;

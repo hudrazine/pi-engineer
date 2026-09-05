@@ -2,9 +2,9 @@
 
 ## Current Release State
 
-`@hudrazine/pi-engineer@0.1.0`, Git tag `v0.1.0`, and its GitHub Release are published. Changesets owns subsequent package versions and `CHANGELOG.md` updates.
+`@hudrazine/pi-engineer@0.2.0`, Git tag `v0.2.0`, and its GitHub Release are published. Version 0.2.0 was the first Changesets-managed publication and carries npm provenance. Changesets owns subsequent package versions and `CHANGELOG.md` updates.
 
-A push to `main` runs the [release workflow](../../.github/workflows/publish.yml), which creates or updates the release pull request, publishes an approved release, or exits without release work. The first Changesets-managed publication remains to be verified with the next user-visible package change.
+A push to `main` runs the [release workflow](../../.github/workflows/publish.yml), which creates or updates the release pull request, publishes an approved release, or exits without release work.
 
 ## Preconditions
 
@@ -29,9 +29,9 @@ Follow the policy in [`.changeset/README.md`](../../.changeset/README.md).
 
 1. After changesets reach `main`, the workflow selects version mode and creates or updates `chore(release): version package`.
 2. Review the version, consumed changesets, and `CHANGELOG.md`. If GitHub displays an approval banner for CI created by `GITHUB_TOKEN`, approve the workflow runs, then merge the release pull request after required checks pass.
-3. The resulting `main` push selects publish mode. The read-only verification job runs `vp run check`, `vp run test`, and `vp pm pack -- --dry-run --json`.
+3. The resulting `main` push selects publish mode. The read-only verification job runs `vp run check`, `vp run test:ci`, and `vp pm pack -- --dry-run --json`. Evaluation Harness tests remain part of the local `vp run test` suite because they require the Linux isolation runtime used for evaluation.
 4. Inspect the completed verification output, then explicitly approve the waiting `npm-production` deployment.
-5. Only the approved publish job has `id-token: write`. It runs `vp run release`; `prepublishOnly` repeats check and test during publication.
+5. Only the approved publish job has `id-token: write`. It runs `vp run release`; `prepublishOnly` repeats the check and CI product tests during publication.
 6. Changesets publishes through npm Trusted Publisher, pushes `v<version>`, and creates the matching GitHub Release from the changelog entry.
 
 ## Verification
@@ -43,7 +43,7 @@ After publication:
 3. Confirm that the Git tag, GitHub Release, npm version, and `CHANGELOG.md` entry agree.
 4. Install the exact registry version in a clean Pi package directory and confirm `/pi-engineer status` reports that prompt replacement is active.
 
-The repository is public, so an OIDC publication of this public package is eligible for automatic npm provenance. The existing `0.1.0` artifact predates this automated flow and has no provenance attestation.
+The repository is public, so an OIDC publication of this public package is eligible for automatic npm provenance. Version 0.2.0 verifies this automated path. The earlier 0.1.0 artifact predates it and has no provenance attestation.
 
 ## Failure Handling
 

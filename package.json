@@ -31,14 +31,18 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
+    "eval": "node evaluation/harness/run.mjs",
+    "eval:report": "node evaluation/harness/report.mjs",
     "test": "vp test",
+    "test:ci": "vp test tests/index.test.ts tests/system-prompt.test.ts tests/skills.test.ts",
     "check": "vp check",
-    "prepublishOnly": "vp run check && vp run test"
+    "prepublishOnly": "vp run check && vp run test:ci"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.0",
     "@changesets/cli": "^3.0.1",
-    "@earendil-works/pi-coding-agent": "^0.84.2",
+    "@earendil-works/pi-coding-agent": "^0.85.0",
+    "@earendil-works/pi-server": "^0.85.0",
     "@types/node": "^26.1.1",
     "typescript": "^7.0.2",
     "vite": "catalog:",

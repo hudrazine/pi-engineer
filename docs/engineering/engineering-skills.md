@@ -1,27 +1,27 @@
 # Engineering Skills Design
 
-## Purpose And Implementation Status
+## Purpose and Implementation Status
 
-This document is the authoritative behavioral design for the two generic engineering Skills accepted by [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md). It defines their task classes, boundaries, evidence, interaction, failure handling, and evaluation contract.
+This document defines the two generic engineering Skills separated from the Engineering Policy by [ADR-0004](decisions/0004-separate-engineering-policy-from-procedural-skills.md). It owns their task classes, boundaries, evidence, interaction, and failure handling.
 
-The Package implements and publishes both accepted Skills through its Pi and npm manifests. Deterministic tests verify native Skill loading, required behavioral boundaries, packaged contents, isolated local-Package discovery under Pi 0.84.2, `Project > User > Package` replacement, and preservation of Pi's resolved result at prompt assembly. Staged conditions C through E passed every behavioral required gate. The final disposition accepts the Skills without further changes and records the remaining non-blocking selection and cooperation limitations in the [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md#final-behavior-disposition).
+The Package publishes both Skills through its Pi and npm manifests. Deterministic tests verify native loading, packaged contents, isolated Package discovery under Pi 0.85.0, `Project > User > Package` replacement, and preservation of Pi's resolved result during prompt assembly. The adopted completed-prompt campaign exercises one named `subtractive-code-review` path; it does not claim complete behavioral coverage of either Skill.
 
 ## Responsibility Model
 
-| Owner                      | Responsibility                                                                                          |
-| -------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Engineering Policy         | Universal correctness, preservation, reuse, justified-complexity, verification, and stopping principles |
-| `bounded-implementation`   | Construct the required implementation while containing unsupported scope and structure                  |
-| `subtractive-code-review`  | Find and, when authorized, apply evidence-backed deletion or simplification                             |
-| Repository instructions    | Local architecture, conventions, commands, prohibitions, and precedence                                 |
-| Design documents and tasks | Requirements, non-goals, constraints, accepted decisions, and acceptance criteria                       |
-| Tests, lint, typecheck, CI | Deterministic correctness, regression, policy, and quality enforcement                                  |
+| Owner                      | Responsibility                                                                                                      |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Engineering Policy         | Universal completion, evidence, authorization, autonomy, preservation, destructive-action, and reporting principles |
+| `bounded-implementation`   | Construct the required implementation while containing unsupported scope and structure                              |
+| `subtractive-code-review`  | Find and, when authorized, apply evidence-backed deletion or simplification                                         |
+| Repository instructions    | Local architecture, conventions, commands, prohibitions, and precedence                                             |
+| Design documents and tasks | Requirements, non-goals, constraints, accepted decisions, and acceptance criteria                                   |
+| Tests, lint, typecheck, CI | Deterministic correctness, regression, policy, and quality enforcement                                              |
 
 The Skills consume relevant repository-owned context and checks when available. They do not create a universal repository contract, require a documentation layout, prescribe fixed commands, or replace deterministic enforcement.
 
 ## Shared Decision Priority
 
-Both Skills apply the Engineering Policy's priority order without restating its full policy:
+Both Skills define their own task-specific accuracy, reuse, containment, defense, and verification guidance while operating within the Engineering Policy. Their shared procedural preference is:
 
 1. satisfy the current requirement correctly;
 2. preserve applicable contracts, invariants, security controls, required defenses, and verified behavior;
@@ -216,23 +216,13 @@ Stop when no further evidence-backed reduction remains. Report DELETE and SIMPLI
 
 Each Skill must establish its own inputs, permissions, evidence, and completion conditions. Neither is a required dependency of the other. A project or user Skill with the same name may replace the Package default through Pi's `Project > User > Package` precedence; Package Skills must not assume that an overridden Skill preserves this design.
 
-The Package must not add a separate orchestrator solely to force the two Skills into a pipeline. Cooperation remains a task-state decision made through normal Skill discovery and the Engineering Policy's smallest-applicable-set policy.
+The Package must not add a separate orchestrator solely to force the two Skills into a pipeline. Cooperation remains a task-state decision made through normal Skill discovery.
 
-## Evaluation Contract
+## Evaluation Boundary
 
-Behavior evaluation must distinguish:
+The current [System Prompt Evaluation](evaluation.md) includes one real Package Skill in the completed prompt. It checks that a named subtractive review remains review-only, evidence-based, and bounded. Skill discovery, precedence, packaging, and prompt formatting remain deterministic-test responsibilities.
 
-- positive and negative Skill selection;
-- correctness and preservation from reduction outcomes;
-- review-only behavior from authorized edits;
-- Task Diff Mode from Existing Code Mode;
-- independent Skill behavior from optional handoff behavior;
-- safe uncertainty and DEFER from unsupported deletion;
-- current Policy, revised Policy, and Skill effects.
-
-Correctness, contract preservation, required defenses, authorization, bounded scope, and proportional verification are mandatory gates. Reuse, fewer unsupported concepts, fewer unrelated hunks, supported deletion, and timely stopping are improvement outcomes. LOC and changed-file counts remain secondary diagnostics.
-
-The completed [Engineering Minimality Behavior Evaluation](plans/archive/engineering-minimality-evaluation.md) preserves the concrete fixtures, comparison conditions, sampling, evidence capture, and applied release-blocking criteria.
+This limited case does not prove all branches of either Skill. A separate diagnostic campaign should be introduced only when a concrete Skill behavior question cannot be answered by deterministic tests or the completed-prompt campaign.
 
 ## Invariants And Failure Handling
 
@@ -245,4 +235,4 @@ The completed [Engineering Minimality Behavior Evaluation](plans/archive/enginee
 
 ## Tradeoffs
 
-Two independently complete Skills may repeat a small amount of context establishment when used sequentially. That cost is accepted to preserve standalone use, user overrides, failure isolation, and bounded responsibility. Semantic handoff is less deterministic than a hard pipeline, so selection and cooperation require explicit evaluation across representative models.
+Two independently complete Skills may repeat a small amount of context establishment when used sequentially. That cost preserves standalone use, user overrides, failure isolation, and bounded responsibility. Semantic handoff remains less deterministic than a hard pipeline.
