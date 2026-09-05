@@ -1,5 +1,11 @@
 # @hudrazine/pi-engineer
 
+## 0.3.0
+
+### Minor Changes
+
+- [#12](https://github.com/hudrazine/pi-engineer/pull/12) [`1d9b751`](https://github.com/hudrazine/pi-engineer/commit/1d9b7515e5d213dd8ce038d695ecf7d5904bd162) Thanks [@hudrazine](https://github.com/hudrazine)! - Adopt Engineering Policy 1.0, reducing the built-in policy by about two thirds while preserving its software-engineering direction. Add a fixed Pi Runtime Adapter that retains Pi-provided tools, guidance, project context, Skills, additive instructions, and the working directory.
+
 ## 0.2.0
 
 ### Minor Changes
